@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
@@ -76,6 +77,8 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         GraphView graph = (GraphView) view.findViewById(R.id.graph_wilks);
+        TextView wilksDisplay = (TextView) view.findViewById(R.id.editWilks);
+
         //Line Data for Wilks Progression
         LineGraphSeries<DataPoint> wilksSeries = new LineGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 1),
@@ -87,7 +90,8 @@ public class HomeFragment extends Fragment {
         graph.addSeries(wilksSeries);
         graph.setTitle("Wilks Progression");
 
-
+        //Update to display proper wilks coefficient from SQLite DB
+        wilksDisplay.setText("0");
         return view;
     }
 

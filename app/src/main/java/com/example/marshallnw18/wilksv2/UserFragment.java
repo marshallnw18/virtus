@@ -79,7 +79,7 @@ public class UserFragment extends Fragment {
 
         genderSpinner.setAdapter(adapter);
 
-        return inflater.inflate(R.layout.fragment_user, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

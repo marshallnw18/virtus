@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.marshallnw18.wilksv2.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <LinearLayout
         android:id="@+id/ll_home_1"
         android:layout_width="match_parent"
@@ -27,21 +27,20 @@
             android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/editWilks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:autoText="false"
+            android:background="@null"
             android:ems="10"
             android:gravity="center_horizontal"
-            android:hint="WILKS"
-            android:inputType="number"
-            android:background="@null"/>
+            android:hint="-"
+            android:inputType="number" />
 
     </LinearLayout>
 
     <!--android:layout_below for relative positioning-->
-
+    <!--Graph for Wilks changes over time-->
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph_wilks"
         android:layout_width="match_parent"
@@ -54,5 +53,115 @@
         android:paddingBottom="100dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp" />
-    </RelativeLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_home_squat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Squat:"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_home_squatDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:editable="false"
+                android:inputType="number"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/tv_home_bench"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Bench:"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_home_benchDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/tv_home_deadlift"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Deadlift:"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_home_deadliftDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="-" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_home_total"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:text="Total:"
+                android:textAlignment="textEnd"
+                android:textSize="18sp" />
+
+            <Space
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".3" />
+
+            <TextView
+                android:id="@+id/tv_home_totalDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="-"
+                android:textAlignment="viewStart"
+                android:layout_gravity="start"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dip" />
+
+        <!--Graph Display for Squat, Bench, Deadlift over Time-->
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph_sbd"
+            android:layout_width="match_parent"
+            android:layout_height="200dip"
+            android:nestedScrollingEnabled="false"/>
+    </LinearLayout>
+
 </ScrollView>
