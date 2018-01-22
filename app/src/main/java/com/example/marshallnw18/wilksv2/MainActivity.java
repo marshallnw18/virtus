@@ -12,7 +12,7 @@ import android.widget.TextView;
 import static android.R.attr.fragment;
 
 public class MainActivity extends AppCompatActivity {
-
+    DatabaseHelper mDatabaseHelper;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
