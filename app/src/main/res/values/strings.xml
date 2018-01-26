@@ -1,5 +1,8 @@
+<!DOCTYPE resources [
+<!ENTITY proteinValue "100">
+]>
 <resources>
-    <string name="app_name">WILKSv2</string>
+    <string name="app_name">Virtus</string>
     <string name="title_home">Home</string>
     <string name="title_user">User</string>
     <string name="title_workout">Workout</string>
@@ -7,6 +10,9 @@
 
     <string name="hint_age">Age</string>
     <string name="prompt_age">Age: </string>
+
+    <string name="proteinValue">100</string>
+    <string name="proteinDisplay">&proteinValue;(g) \nProtein </string>
 
     <string-array name="gender_options">
         <item>Male</item>

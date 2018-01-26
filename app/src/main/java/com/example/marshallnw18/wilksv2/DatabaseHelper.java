@@ -47,6 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    //TODO: Update Database creation based on the newest tables made in Google Docs
     public static final String DATABASE_CREATE_USERS = "create table "
             + TABLE_USERS + "(" + COLUMN_ID + " integer primary key autoincrement, "
             + COL_HEIGHT + " int, "
@@ -90,4 +91,5 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LIFTS);
         onCreate(db);
     }
+
 }
