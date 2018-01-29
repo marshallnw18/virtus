@@ -220,6 +220,32 @@
             android:layout_weight="1"
             android:orientation="vertical"
             >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weekly Activity Level: "
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+
+            <Spinner
+                android:id="@+id/activityspinner"
+                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:gravity="center"
+                android:layout_weight="1">
+            </Spinner>
+        </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
 
             <TextView
                 android:layout_width="match_parent"

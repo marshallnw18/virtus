@@ -45,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        SQLiteDatabase db = this.getReadableDatabase();
     }
 
     //TODO: Update Database creation based on the newest tables made in Google Docs

@@ -72,14 +72,25 @@ public class UserFragment extends Fragment {
         //Creating Gender Spinner for gender selection
         Spinner genderSpinner = (Spinner) view.findViewById(R.id.genderspinner);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+        ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.gender_options, android.R.layout.simple_spinner_item);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        genderSpinner.setAdapter(adapter);
+        genderSpinner.setAdapter(genderAdapter);
+
+        //Creating spinner for Activity Levels
+        Spinner activitySpinner = (Spinner) view.findViewById(R.id.activityspinner);
+
+        ArrayAdapter<CharSequence> activityAdapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.activity_options, android.R.layout.simple_spinner_item);
+
+        activityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        activitySpinner.setAdapter(activityAdapter);
 
         return view;
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
