@@ -1,8 +1,12 @@
 package com.example.marshallnw18.wilksv2;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Nick Marshall on 1/19/2018.
@@ -63,22 +67,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             + COL_TDEE + " int, "
             + COL_DATE + " text)";
 
-   /* public static final String DATABASE_CREATE_LIFTS = "create table "
-            + TABLE_LIFTS + "(" + COLUMN_ID + " integer primary key autoincrement, "
-            + COL_SQUAT + " int, "
-            + COL_BENCH + " int, "
-            + COL_DEADLIFT + " int, "
-            + COL_WILKS + " double, "
-            + "foreign key (" + COL_WILKS + ") references " + TABLE_USERS + "(" + COL_WILKS + ")"; //FK to User
-
-    public static final String DATABASE_CREATE_NUTRITION = "create table "
-            + TABLE_NUTRITION + "(" + COLUMN_ID + " integer primary key autoincrement, "
-            + COL_CARBS + " int, "
-            + COL_PROTEINS + " int, "
-            + COL_FATS + " int, "
-            + COL_TDEE + " int, "
-            + "foreign key (" + COL_TDEE + ") references " + TABLE_USERS + "(" + COL_TDEE + ")"; //Foreign Key to User */
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE_USER);
@@ -93,6 +81,34 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         onCreate(db);
+    }
+
+    public boolean addData(int height, int weight, String gender,
+                           int squat, int bench, int deadlift, int wilks,
+                           int carbs, int protein, int fats, int tdee){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COL_HEIGHT, height);
+        contentValues.put(COL_WEIGHT, weight);
+        contentValues.put(COL_GENDER, gender);
+        contentValues.put(COL_SQUAT, squat);
+        contentValues.put(COL_BENCH, bench);
+        contentValues.put(COL_DEADLIFT, deadlift);
+        contentValues.put(COL_WILKS, wilks);
+        contentValues.put(COL_CARBS, carbs);
+        contentValues.put(COL_PROTEINS, protein);
+        contentValues.put(COL_FATS, fats);
+        contentValues.put(COL_TDEE, tdee);
+        //contentValues.put(COL_DATE, date);
+
+        long result = db.insert(TABLE_USER, null, contentValues);
+
+        if(result == -1){
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

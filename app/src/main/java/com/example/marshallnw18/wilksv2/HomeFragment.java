@@ -73,7 +73,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         GraphView graph = (GraphView) view.findViewById(R.id.graph_wilks);
@@ -90,7 +89,7 @@ public class HomeFragment extends Fragment {
         graph.addSeries(wilksSeries);
         graph.setTitle("Wilks Progression");
 
-        //Update to display proper wilks coefficient from SQLite DB
+        //TODO: Update to display proper wilks coefficient from SQLite DB
         wilksDisplay.setText("0");
         return view;
     }
