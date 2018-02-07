@@ -126,19 +126,22 @@ public class UserFragment extends Fragment {
                 } else {
                     bmr = 655 + (9.6 * finalWeight) + (1.8 * finalHeight) - (4.7 * finalAge);
                 }
-                System.out.println("Basal Metabolic Rate: " + bmr);
+                System.out.println(gender + " \nBasal Metabolic Rate: " + bmr);
 
-                if(activityLevel == "Sedentary"){
+                if(activityLevel == "Sedentary: Little or no Exercise"){
                     tdee = bmr * 1.2;
-                } else if (activityLevel == "Lightly Active"){
+                } else if (activityLevel == "Lightly Active: Exercise 1-3 days per week"){
                     tdee = bmr * 1.375;
-                } else if (activityLevel == "Moderately Active"){
+                } else if (activityLevel == "Moderately Active: Exercise 3-5 days per week"){
                     tdee = bmr * 1.55;
-                } else if (activityLevel == "Very Active"){
+                } else if (activityLevel == "Very Active: Exercise 6-7 days per week"){
                     tdee = bmr * 1.725;
                 } else {
                     tdee = bmr * 1.9;
                 }
+
+                //TODO:Check for correctness
+                System.out.println(activityLevel);
                 System.out.println("Total Daily Energy Expenditure: " + tdee);
 
                 finalWilks = calculateWilks(finalWeight, gender);
@@ -149,9 +152,6 @@ public class UserFragment extends Fragment {
                         0,0,0, (int) tdee);
             }
         });
-
-        //TODO: addData function implementation
-
 
         return view;
     }
@@ -185,10 +185,13 @@ public class UserFragment extends Fragment {
             a = 594.31747775582;
             b = -27.23842536447;
             c = 0.82112226871;
-            d = d=-0.00930733913;
+            d = -0.00930733913;
             e = 4.731582 * Math.pow(10, -5);
             f = -9.054 * Math.pow(10, -8);
         }
+
+        //TODO: Check for correctness
+        System.out.println(lifterGender);
 
         coeff = (500 / (a + (b*lifterWeight) + (c * Math.pow(lifterWeight,2)) + (d * Math.pow(lifterWeight,3)) +
                 (e * Math.pow(lifterWeight,4) + (f * Math.pow(lifterWeight,5)))));

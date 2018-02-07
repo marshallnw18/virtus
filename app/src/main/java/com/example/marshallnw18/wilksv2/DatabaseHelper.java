@@ -18,13 +18,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String COLUMN_ID = "_id";
 
     /*
-    TODO: Create model classes for each table listed below.
     https://www.androidhive.info/2013/09/android-sqlite-database-with-multiple-tables/
     https://www.youtube.com/watch?v=q3rhteIierY
-
-    USERS done
-    LIFTS done
-    NUTRITION done
      */
 
     //users Table
@@ -51,7 +46,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
     }
 
-    //TODO: Update Database creation based on the newest tables made in Google Docs
     public static final String DATABASE_CREATE_USER = "create table "
             + TABLE_USER + "(" + COLUMN_ID + " integer primary key autoincrement, "
             + COL_HEIGHT + " int, "
