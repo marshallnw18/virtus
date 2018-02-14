@@ -298,6 +298,7 @@
                 android:layout_height="15dp"/>
 
             <TextView
+                android:id="@+id/tv_tdee"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TDEE"
@@ -323,18 +324,21 @@
                 >
 
                 <TextView
+                    android:id="@+id/tv_proteins"
                     android:layout_width="46dp"
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:gravity="center"
                     android:layout_weight="1"/>
                 <TextView
+                    android:id="@+id/tv_carbs"
                     android:layout_width="91dp"
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:gravity="center"
                     android:layout_weight="1"/>
                 <TextView
+                    android:id="@+id/tv_fats"
                     android:layout_width="27dp"
                     android:layout_height="wrap_content"
                     android:text="0"

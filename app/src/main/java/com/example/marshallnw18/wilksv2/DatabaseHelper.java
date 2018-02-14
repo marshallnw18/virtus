@@ -163,13 +163,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    /*
-    public Cursor getInformation(DatabaseHelper db){
+    //TODO: Write more methods for populating textviews; Look into sorting by most recent DateTime and displaying singular value
+
+    public String populateTDEEData(DatabaseHelper db){
         SQLiteDatabase SQ = db.getReadableDatabase();
-        String[] columns = {COL_HEIGHT, COL_WEIGHT, COL_GENDER, COL_SQUAT, COL_BENCH, COL_DEADLIFT, COL_WILKS, COL_CARBS, COL_PROTEINS, COL_FATS, COL_TDEE};
-        //TODO: Revisit modifying parameters for selecting specific informtion from this query
-        Cursor CR = SQ.query(TABLE_USER, columns, null, null, null, null, null);
-        return CR;
-    } */
+        String[] columns = new String[]{NUTRITION_ID, COL_CARBS, COL_PROTEINS, COL_FATS, COL_TDEE, COL_NUTRITION_DATE};
+        Cursor c = SQ.query(TABLE_NUTRITION, columns, null, null, null, null, null);
+        String result = "";
+
+        int indexTDEE = c.getColumnIndex(COL_TDEE);
+
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            result = c.getString(indexTDEE);
+        }
+
+        return result;
+    }
 
 }

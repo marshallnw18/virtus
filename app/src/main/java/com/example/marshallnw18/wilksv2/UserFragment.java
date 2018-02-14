@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -32,6 +33,7 @@ public class UserFragment extends Fragment {
     private DatabaseHelper mDatabaseHelper;
     private Button UpdateSettings;
     private EditText editHeight, editWeight, editAge, editSquat, editBench, editDeadlift;
+    private TextView tvTDEE, tvCarbs, tvProteins, tvFats;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -76,6 +78,14 @@ public class UserFragment extends Fragment {
         editBench = view.findViewById(R.id.editBench);
         editSquat = view.findViewById(R.id.editSquat);
         editDeadlift = view.findViewById(R.id.editDeadlift);
+
+        tvTDEE = view.findViewById(R.id.tv_tdee);
+        tvProteins = view.findViewById(R.id.tv_proteins);
+        tvCarbs = view.findViewById(R.id.tv_carbs);
+        tvFats = view.findViewById(R.id.tv_fats);
+
+        String TDEEdata = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
+        tvTDEE.setText(TDEEdata);
 
         //Creating Gender Spinner for gender selection
         final Spinner genderSpinner = (Spinner) view.findViewById(R.id.genderspinner);
