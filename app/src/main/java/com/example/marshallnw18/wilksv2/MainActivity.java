@@ -1,5 +1,6 @@
 package com.example.marshallnw18.wilksv2;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;

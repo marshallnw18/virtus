@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,14 +43,6 @@ public class UserFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UserFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static UserFragment newInstance(String param1, String param2) {
         UserFragment fragment = new UserFragment();
@@ -84,18 +77,15 @@ public class UserFragment extends Fragment {
         editSquat = view.findViewById(R.id.editSquat);
         editDeadlift = view.findViewById(R.id.editDeadlift);
 
-
         //Creating Gender Spinner for gender selection
         final Spinner genderSpinner = (Spinner) view.findViewById(R.id.genderspinner);
-        ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.gender_options, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.gender_options, android.R.layout.simple_spinner_item);
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(genderAdapter);
 
         //Creating spinner for Activity Levels
         final Spinner activitySpinner = (Spinner) view.findViewById(R.id.activityspinner);
-        ArrayAdapter<CharSequence> activityAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.activity_options, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> activityAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.activity_options, android.R.layout.simple_spinner_item);
         activityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         activitySpinner.setAdapter(activityAdapter);
 
@@ -114,19 +104,21 @@ public class UserFragment extends Fragment {
 
                 int finalAge = Integer.parseInt(age);
                 int finalHeight = Integer.parseInt(height);
-                int finalWeight = Integer.parseInt(weight);
+                int finalWeight = (int)(Integer.parseInt(weight));
                 int finalSquat = Integer.parseInt(squat);
                 int finalBench = Integer.parseInt(bench);
                 int finalDeadlift = Integer.parseInt(deadlift);
                 int finalWilks;
                 double bmr, tdee;
 
+                //TODO: Fix error with Spinner being disposed
+
                 if(gender == "Male"){
-                    bmr = 66 + (13.7 * finalWeight) + (5 * finalHeight) - (6.8 * finalAge);
+                    bmr = 66 + (6.23 * finalWeight) + (12.7 * finalHeight) - (6.8 * finalAge);
                 } else {
-                    bmr = 655 + (9.6 * finalWeight) + (1.8 * finalHeight) - (4.7 * finalAge);
+                    bmr = 655 + (4.35 * finalWeight) + (4.7 * finalHeight) - (4.7 * finalAge);
                 }
-                System.out.println(gender + " \nBasal Metabolic Rate: " + bmr);
+                Log.d("User Fragment", "BMR/Gender: " + bmr + "/" + gender);
 
                 if(activityLevel == "Sedentary: Little or no Exercise"){
                     tdee = bmr * 1.2;
@@ -146,27 +138,47 @@ public class UserFragment extends Fragment {
 
                 finalWilks = calculateWilks(finalWeight, gender);
 
-        //TODO: Macro calculations
+                 //TODO: Macro calculations
 
-                addData(finalHeight, finalWeight, gender, finalSquat, finalBench, finalDeadlift, finalWilks,
-                        0,0,0, (int) tdee);
+                addDataUsers(finalHeight, finalWeight, gender);
+                addDataLifts(finalSquat, finalBench, finalDeadlift, finalWilks);
+                addDataNutrition(0, 0, 0, (int) tdee);
             }
         });
 
         return view;
     }
 
-    //TODO: Make sure this works with data insertions
-    public void addData (int height, int weight, String gender,
-                            int squat, int bench, int deadlift, int wilks,
-                            int carbs, int protein, int fats, int tdee){
+    public void addDataUsers (int height, int weight, String gender){
 
-        boolean insertData = mDatabaseHelper.addData(height,weight,gender,squat,bench,deadlift,wilks,carbs,protein,fats,tdee);
+        boolean insertData = mDatabaseHelper.addDataUsers(height,weight,gender);
 
         if(insertData = true){
-            System.out.println("Data successfully inserted");
+            Log.d("User Fragment","User data successfully inserted");
         } else {
-            System.out.println("Something went wrong");
+            Log.d("User Fragment","User data insertion failed");
+        }
+    }
+
+    public void addDataLifts (int squat, int bench, int deadlift, int wilks){
+
+        boolean insertData = mDatabaseHelper.addDataLifts(squat,bench,deadlift, wilks);
+
+        if(insertData = true){
+            Log.d("User Fragment","Lift data successfully inserted");
+        } else {
+            Log.d("User Fragment","Lift data insertion failed");
+        }
+    }
+
+    public void addDataNutrition (int carbs, int proteins, int fats, int tdee){
+
+        boolean insertData = mDatabaseHelper.addDataLifts(carbs,proteins,fats, tdee);
+
+        if(insertData = true){
+            Log.d("User Fragment","Lift data successfully inserted");
+        } else {
+            Log.d("User Fragment","Lift data insertion failed");
         }
     }
 
@@ -189,9 +201,6 @@ public class UserFragment extends Fragment {
             e = 4.731582 * Math.pow(10, -5);
             f = -9.054 * Math.pow(10, -8);
         }
-
-        //TODO: Check for correctness
-        System.out.println(lifterGender);
 
         coeff = (500 / (a + (b*lifterWeight) + (c * Math.pow(lifterWeight,2)) + (d * Math.pow(lifterWeight,3)) +
                 (e * Math.pow(lifterWeight,4) + (f * Math.pow(lifterWeight,5)))));
@@ -221,16 +230,6 @@ public class UserFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

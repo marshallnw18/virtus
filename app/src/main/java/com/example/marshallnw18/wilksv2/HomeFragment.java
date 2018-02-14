@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         GraphView graph = (GraphView) view.findViewById(R.id.graph_wilks);
-        TextView wilksDisplay = (TextView) view.findViewById(R.id.editWilks);
+        TextView wilksDisplay = (TextView) view.findViewById(R.id.tv_wilks);
 
         //Line Data for Wilks Progression
         LineGraphSeries<DataPoint> wilksSeries = new LineGraphSeries<>(new DataPoint[] {

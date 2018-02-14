@@ -7,15 +7,21 @@
     <string name="title_user">User</string>
     <string name="title_workout">Workout</string>
 
-
-    <string name="hint_age">Age</string>
-    <string name="prompt_age">Age: </string>
-
     <string name="gender_prompt">Select Gender...</string>
     <string name="activity_prompt">Select Current Weekly Activity Level...</string>
 
     <string name="proteinValue">100</string>
     <string name="proteinDisplay">&proteinValue;(g) \nProtein </string>
+
+    <!--User Settings Page-->
+    <string name = "tv_age">Age: </string>
+    <string name = "tv_squat">Squat: </string>
+    <string name = "tv_bench">Bench: </string>
+    <string name = "tv_deadlift">Deadlift: </string>
+    <string name = "tv_gender">Gender: </string>
+    <string name = "tv_weight">Bodyweight: </string>
+
+    <string name="hint_age">Age</string>
 
     <string-array name="gender_options">
         <item>Male</item>
@@ -29,5 +35,7 @@
         <item>Very Active: Exercise 6-7 days per week</item>
         <item>Extremely Active: Training 2x each day</item>
     </string-array>
+
+
 
 </resources>
