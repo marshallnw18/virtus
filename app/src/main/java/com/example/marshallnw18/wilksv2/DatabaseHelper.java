@@ -123,7 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public boolean addDataLifts(int squat, int bench, int deadlift, int wilks){
+    public boolean addDataLifts(int squat, int bench, int deadlift, double wilks){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 

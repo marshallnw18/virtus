@@ -10,17 +10,19 @@ public class Nutrition {
     private int _carbs;
     private int _fats;
     private int _tdee;
+    private String _date;
 
     //TODO: May need additional constructors
     public Nutrition(){
     }
 
-    public Nutrition(int _id, int _proteins, int _carbs, int _fats, int _tdee) {
+    public Nutrition(int _id, int _proteins, int _carbs, int _fats, int _tdee, String _date) {
         this._id = _id;
         this._proteins = _proteins;
         this._carbs = _carbs;
         this._fats = _fats;
         this._tdee = _tdee;
+        this._date = _date;
     }
 
     //Setters
@@ -45,6 +47,10 @@ public class Nutrition {
         this._tdee = _tdee;
     }
 
+    public void set_date(String _date) {
+        this._date = _date;
+    }
+
     //Getters
 
     public int get_id() {
@@ -65,5 +71,9 @@ public class Nutrition {
 
     public int get_tdee() {
         return _tdee;
+    }
+
+    public String get_date() {
+        return _date;
     }
 }

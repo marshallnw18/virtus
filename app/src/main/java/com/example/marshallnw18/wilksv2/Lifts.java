@@ -10,16 +10,19 @@ public class Lifts {
     private int _bench;
     private int _deadlift;
     private double _wilks;
+    private String _date;
 
     //TODO: May need additional constructors, dependent on inputs
     public Lifts(){}
 
-    public Lifts(int _id, int _squat, int _bench, int _deadlift, double _wilks) {
+
+    public Lifts(int _id, int _squat, int _bench, int _deadlift, double _wilks, String _date) {
         this._id = _id;
         this._squat = _squat;
         this._bench = _bench;
         this._deadlift = _deadlift;
         this._wilks = _wilks;
+        this._date = _date;
     }
 
     //Setters
@@ -43,6 +46,10 @@ public class Lifts {
         this._wilks = _wilks;
     }
 
+    public void set_date(String _date) {
+        this._date = _date;
+    }
+
     //Getters
     public int get_id() {
         return _id;
@@ -62,5 +69,9 @@ public class Lifts {
 
     public double get_wilks() {
         return _wilks;
+    }
+
+    public String get_date() {
+        return _date;
     }
 }

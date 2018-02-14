@@ -31,6 +31,7 @@ dependencies {
     compile 'com.android.support:support-v4:27.+'
     compile 'com.jjoe64:graphview:4.2.1'
     testCompile 'junit:junit:4.12'
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 }
 
 repositories {

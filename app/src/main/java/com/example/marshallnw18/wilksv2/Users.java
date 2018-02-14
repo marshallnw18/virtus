@@ -10,20 +10,18 @@ public class Users {
     private int _height;
     private int _weight;
     private String _gender;
-    private int _tdee;
-    private double _wilks;
+    private String _date;
 
     //Constructors
     //Possibility for the need of additional constructors
     public Users(){}
 
-    public Users(int _id, int _height, int _weight, String _gender, int _tdee, double _wilks) {
+    public Users(int _id, int _height, int _weight, String _gender, String _date) {
         this._id = _id;
         this._height = _height;
         this._weight = _weight;
         this._gender = _gender;
-        this._tdee = _tdee;
-        this._wilks = _wilks;
+        this._date = _date;
     }
 
     //Setters
@@ -43,12 +41,8 @@ public class Users {
         this._gender = _gender;
     }
 
-    public void set_tdee(int _tdee) {
-        this._tdee = _tdee;
-    }
-
-    public void set_wilks(double _wilks) {
-        this._wilks = _wilks;
+    public void set_date(String _date) {
+        this._date = _date;
     }
 
     //Getters
@@ -69,11 +63,7 @@ public class Users {
         return _gender;
     }
 
-    public int get_tdee() {
-        return _tdee;
-    }
-
-    public double get_wilks() {
-        return _wilks;
+    public String get_date() {
+        return _date;
     }
 }

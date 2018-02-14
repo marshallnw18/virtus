@@ -108,7 +108,7 @@ public class UserFragment extends Fragment {
                 int finalSquat = Integer.parseInt(squat);
                 int finalBench = Integer.parseInt(bench);
                 int finalDeadlift = Integer.parseInt(deadlift);
-                int finalWilks;
+                double finalWilks;
                 double bmr, tdee;
 
                 //TODO: Fix error with Spinner being disposed
@@ -160,7 +160,7 @@ public class UserFragment extends Fragment {
         }
     }
 
-    public void addDataLifts (int squat, int bench, int deadlift, int wilks){
+    public void addDataLifts (int squat, int bench, int deadlift, double wilks){
 
         boolean insertData = mDatabaseHelper.addDataLifts(squat,bench,deadlift, wilks);
 
@@ -173,16 +173,16 @@ public class UserFragment extends Fragment {
 
     public void addDataNutrition (int carbs, int proteins, int fats, int tdee){
 
-        boolean insertData = mDatabaseHelper.addDataLifts(carbs,proteins,fats, tdee);
+        boolean insertData = mDatabaseHelper.addDataNutrition(carbs,proteins,fats, tdee);
 
         if(insertData = true){
-            Log.d("User Fragment","Lift data successfully inserted");
+            Log.d("User Fragment","Nutrition data successfully inserted");
         } else {
-            Log.d("User Fragment","Lift data insertion failed");
+            Log.d("User Fragment","Nutrition data insertion failed");
         }
     }
 
-    public int calculateWilks(int lifterWeight, String lifterGender){
+    public double calculateWilks(int lifterWeight, String lifterGender){
         double coeff;
         double a, b, c, d, e, f;
 
@@ -202,11 +202,16 @@ public class UserFragment extends Fragment {
             f = -9.054 * Math.pow(10, -8);
         }
 
-        coeff = (500 / (a + (b*lifterWeight) + (c * Math.pow(lifterWeight,2)) + (d * Math.pow(lifterWeight,3)) +
-                (e * Math.pow(lifterWeight,4) + (f * Math.pow(lifterWeight,5)))));
+        coeff = (500 /
+                (a + (b*lifterWeight) +
+                (c * (lifterWeight * lifterWeight)) +
+                (d * (lifterWeight * lifterWeight * lifterWeight)) +
+                (e * (lifterWeight * lifterWeight * lifterWeight * lifterWeight) +
+                (f * (lifterWeight * lifterWeight * lifterWeight * lifterWeight * lifterWeight)))));
 
-        System.out.println("Wilks Coeff: " + coeff);
-        return (int) coeff;
+        Log.d("User Fragment", "Wilks Coeff before cast: " + coeff);
+        Log.d("User Fragment", "Wilks Coeff after cast: " + (int) coeff);
+        return coeff;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
