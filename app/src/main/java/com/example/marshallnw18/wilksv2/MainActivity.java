@@ -1,6 +1,7 @@
 package com.example.marshallnw18.wilksv2;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -16,6 +17,7 @@ import static android.R.attr.fragment;
 
 public class MainActivity extends AppCompatActivity {
     public DatabaseHelper mDatabaseHelper;
+    private SQLiteDatabase db;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -49,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_home);
 
-        mDatabaseHelper = new DatabaseHelper(this);
     }
 
 }

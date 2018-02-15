@@ -1,6 +1,8 @@
 package com.example.marshallnw18.wilksv2;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,6 +30,7 @@ public class HomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private SQLiteDatabase db;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -76,7 +79,9 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         GraphView graph = (GraphView) view.findViewById(R.id.graph_wilks);
-        TextView wilksDisplay = (TextView) view.findViewById(R.id.tv_wilks);
+        TextView tv_wilks = (TextView) view.findViewById(R.id.tv_wilks);
+
+        String wilksDisplay = tv_wilks.getText().toString();
 
         //Line Data for Wilks Progression
         LineGraphSeries<DataPoint> wilksSeries = new LineGraphSeries<>(new DataPoint[] {
@@ -89,8 +94,7 @@ public class HomeFragment extends Fragment {
         graph.addSeries(wilksSeries);
         graph.setTitle("Wilks Progression");
 
-        //TODO: Update to display proper wilks coefficient from SQLite DB
-        wilksDisplay.setText("0");
+        //wilksDisplay.setText("0");
         return view;
     }
 

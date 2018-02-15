@@ -35,6 +35,9 @@ public class UserFragment extends Fragment {
     private EditText editHeight, editWeight, editAge, editSquat, editBench, editDeadlift;
     private TextView tvTDEE, tvCarbs, tvProteins, tvFats;
 
+
+    private String TDEEdata, carbData, proteinData, fatsData;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -84,8 +87,16 @@ public class UserFragment extends Fragment {
         tvCarbs = view.findViewById(R.id.tv_carbs);
         tvFats = view.findViewById(R.id.tv_fats);
 
-        String TDEEdata = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
+        TDEEdata = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
+        carbData = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
+        fatsData = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
+        proteinData = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
+
+
         tvTDEE.setText(TDEEdata);
+        tvCarbs.setText(carbData);
+        tvFats.setText(fatsData);
+        tvProteins.setText(proteinData);
 
         //Creating Gender Spinner for gender selection
         final Spinner genderSpinner = (Spinner) view.findViewById(R.id.genderspinner);
@@ -153,6 +164,18 @@ public class UserFragment extends Fragment {
                 addDataUsers(finalHeight, finalWeight, gender);
                 addDataLifts(finalSquat, finalBench, finalDeadlift, finalWilks);
                 addDataNutrition(0, 0, 0, (int) tdee);
+
+                //TODO: Update these functions with correct functions that return macro breakdowns
+                TDEEdata = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
+                carbData = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
+                fatsData = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
+                proteinData = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
+
+
+                tvTDEE.setText(TDEEdata);
+                tvCarbs.setText(carbData);
+                tvFats.setText(fatsData);
+                tvProteins.setText(proteinData);
             }
         });
 

@@ -12,7 +12,6 @@ public class Lifts {
     private double _wilks;
     private String _date;
 
-    //TODO: May need additional constructors, dependent on inputs
     public Lifts(){}
 
 

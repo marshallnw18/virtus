@@ -12,7 +12,6 @@ public class Nutrition {
     private int _tdee;
     private String _date;
 
-    //TODO: May need additional constructors
     public Nutrition(){
     }
 

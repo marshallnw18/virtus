@@ -168,7 +168,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public String populateTDEEData(DatabaseHelper db){
         SQLiteDatabase SQ = db.getReadableDatabase();
         String[] columns = new String[]{NUTRITION_ID, COL_CARBS, COL_PROTEINS, COL_FATS, COL_TDEE, COL_NUTRITION_DATE};
-        Cursor c = SQ.query(TABLE_NUTRITION, columns, null, null, null, null, null);
+        String orderBy = COL_NUTRITION_DATE + " DESC";
+        String limit = "1";
+
+        //SQL Query that orders based on the most recent DateTime entry
+        Cursor c = SQ.query(TABLE_NUTRITION, columns, null, null, null, null, orderBy, limit);
         String result = "";
 
         int indexTDEE = c.getColumnIndex(COL_TDEE);
