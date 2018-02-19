@@ -184,4 +184,137 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return result;
     }
 
+    public String populateCarbData(DatabaseHelper db){
+        SQLiteDatabase SQ = db.getReadableDatabase();
+        String[] columns = new String[]{NUTRITION_ID, COL_CARBS, COL_PROTEINS, COL_FATS, COL_TDEE, COL_NUTRITION_DATE};
+        String orderBy = COL_CARBS + " DESC";
+        String limit = "1";
+
+        //SQL Query that orders based on the most recent DateTime entry
+        Cursor c = SQ.query(TABLE_NUTRITION, columns, null, null, null, null, orderBy, limit);
+        String result = "";
+
+        int indexCarbs = c.getColumnIndex(COL_CARBS);
+
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            result = c.getString(indexCarbs);
+        }
+
+        return result;
+    }
+
+    public String populateFatsData(DatabaseHelper db){
+        SQLiteDatabase SQ = db.getReadableDatabase();
+        String[] columns = new String[]{NUTRITION_ID, COL_CARBS, COL_PROTEINS, COL_FATS, COL_TDEE, COL_NUTRITION_DATE};
+        String orderBy = COL_FATS + " DESC";
+        String limit = "1";
+
+        //SQL Query that orders based on the most recent DateTime entry
+        Cursor c = SQ.query(TABLE_NUTRITION, columns, null, null, null, null, orderBy, limit);
+        String result = "";
+
+        int indexFats = c.getColumnIndex(COL_FATS);
+
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            result = c.getString(indexFats);
+        }
+
+        return result;
+    }
+
+    public String populateProteinData(DatabaseHelper db){
+        SQLiteDatabase SQ = db.getReadableDatabase();
+        String[] columns = new String[]{NUTRITION_ID, COL_CARBS, COL_PROTEINS, COL_FATS, COL_TDEE, COL_NUTRITION_DATE};
+        String orderBy = COL_PROTEINS + " DESC";
+        String limit = "1";
+
+        //SQL Query that orders based on the most recent DateTime entry
+        Cursor c = SQ.query(TABLE_NUTRITION, columns, null, null, null, null, orderBy, limit);
+        String result = "";
+
+        int indexProteins = c.getColumnIndex(COL_PROTEINS);
+
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            result = c.getString(indexProteins);
+        }
+
+        return result;
+    }
+
+    public String populateWilksData(DatabaseHelper db){
+        SQLiteDatabase SQ = db.getReadableDatabase();
+        String[] columns = new String[]{LIFTS_ID, COL_SQUAT, COL_BENCH, COL_DEADLIFT, COL_WILKS, COL_LIFTS_DATE};
+        String orderBy = COL_WILKS + " DESC";
+        String limit = "1";
+
+        //SQL Query that orders based on the most recent DateTime entry
+        Cursor c = SQ.query(TABLE_LIFTS, columns, null, null, null, null, orderBy, limit);
+        String result = "";
+
+        int indexWilks = c.getColumnIndex(COL_WILKS);
+
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            result = c.getString(indexWilks);
+        }
+
+        return result;
+    }
+
+    public String populateBenchData(DatabaseHelper db){
+        SQLiteDatabase SQ = db.getReadableDatabase();
+        String[] columns = new String[]{LIFTS_ID, COL_SQUAT, COL_BENCH, COL_DEADLIFT, COL_WILKS, COL_LIFTS_DATE};
+        String orderBy = COL_BENCH + " DESC";
+        String limit = "1";
+
+        //SQL Query that orders based on the most recent DateTime entry
+        Cursor c = SQ.query(TABLE_LIFTS, columns, null, null, null, null, orderBy, limit);
+        String result = "";
+
+        int indexBench = c.getColumnIndex(COL_BENCH);
+
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            result = c.getString(indexBench);
+        }
+
+        return result;
+    }
+
+    public String populateSquatData(DatabaseHelper db){
+        SQLiteDatabase SQ = db.getReadableDatabase();
+        String[] columns = new String[]{LIFTS_ID, COL_SQUAT, COL_BENCH, COL_DEADLIFT, COL_WILKS, COL_LIFTS_DATE};
+        String orderBy = COL_SQUAT + " DESC";
+        String limit = "1";
+
+        //SQL Query that orders based on the most recent DateTime entry
+        Cursor c = SQ.query(TABLE_LIFTS, columns, null, null, null, null, orderBy, limit);
+        String result = "";
+
+        int indexSquat = c.getColumnIndex(COL_SQUAT);
+
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            result = c.getString(indexSquat);
+        }
+
+        return result;
+    }
+
+    public String populateDeadliftData(DatabaseHelper db){
+        SQLiteDatabase SQ = db.getReadableDatabase();
+        String[] columns = new String[]{LIFTS_ID, COL_SQUAT, COL_BENCH, COL_DEADLIFT, COL_WILKS, COL_LIFTS_DATE};
+        String orderBy = COL_DEADLIFT + " DESC";
+        String limit = "1";
+
+        //SQL Query that orders based on the most recent DateTime entry
+        Cursor c = SQ.query(TABLE_LIFTS, columns, null, null, null, null, orderBy, limit);
+        String result = "";
+
+        int indexDeadlift = c.getColumnIndex(COL_DEADLIFT);
+
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            result = c.getString(indexDeadlift);
+        }
+
+        return result;
+    }
+
 }

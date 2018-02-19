@@ -17,7 +17,7 @@ import static android.R.attr.fragment;
 
 public class MainActivity extends AppCompatActivity {
     public DatabaseHelper mDatabaseHelper;
-    private SQLiteDatabase db;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

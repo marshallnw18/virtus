@@ -88,9 +88,9 @@ public class UserFragment extends Fragment {
         tvFats = view.findViewById(R.id.tv_fats);
 
         TDEEdata = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
-        carbData = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
-        fatsData = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
-        proteinData = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
+        carbData = mDatabaseHelper.populateCarbData(mDatabaseHelper);
+        fatsData = mDatabaseHelper.populateFatsData(mDatabaseHelper);
+        proteinData = mDatabaseHelper.populateProteinData(mDatabaseHelper);
 
 
         tvTDEE.setText(TDEEdata);
@@ -167,9 +167,9 @@ public class UserFragment extends Fragment {
 
                 //TODO: Update these functions with correct functions that return macro breakdowns
                 TDEEdata = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
-                carbData = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
-                fatsData = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
-                proteinData = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
+                carbData = mDatabaseHelper.populateCarbData(mDatabaseHelper);
+                fatsData = mDatabaseHelper.populateFatsData(mDatabaseHelper);
+                proteinData = mDatabaseHelper.populateProteinData(mDatabaseHelper);
 
 
                 tvTDEE.setText(TDEEdata);
