@@ -1,18 +1,13 @@
-package com.example.marshallnw18.wilksv2;
+package com.example.marshallnw18.virtus;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -94,7 +89,7 @@ public class HomeFragment extends Fragment {
         mProgressBar.showProgressText(false);
         mProgressBar.setProgress(80);
 
-        GraphView graph = (GraphView) view.findViewById(R.id.graph_wilks);
+        GraphView graphTotal = (GraphView) view.findViewById(R.id.graph_wilks);
 
         tv_wilks = (TextView) view.findViewById(R.id.tv_wilks);
         tv_squat = (TextView) view.findViewById(R.id.tv_home_squatDisplay);
@@ -119,7 +114,7 @@ public class HomeFragment extends Fragment {
 
         //TODO: Idea: Make function returning an array of the most recent five lifts and their accompanying date/time's. Use those as the data points
         //Line Data for Wilks Progression
-        LineGraphSeries<DataPoint> wilksSeries = new LineGraphSeries<>(new DataPoint[] {
+        LineGraphSeries<DataPoint> totalSeries = new LineGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 1),
                 new DataPoint(1, 5),
                 new DataPoint(2, 3),
@@ -127,8 +122,8 @@ public class HomeFragment extends Fragment {
                 new DataPoint(4, 6)
         });
 
-        graph.addSeries(wilksSeries);
-        graph.setTitle("Wilks Progression");
+        graphTotal.addSeries(totalSeries);
+        graphTotal.setTitle("Squat/Bench/Deadlift Progression");
 
         tv_squat.setText(squatData);
         tv_bench.setText(benchData);

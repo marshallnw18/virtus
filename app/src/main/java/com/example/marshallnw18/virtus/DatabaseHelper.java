@@ -1,4 +1,4 @@
-package com.example.marshallnw18.wilksv2;
+package com.example.marshallnw18.virtus;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,8 +9,6 @@ import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by Nick Marshall on 1/19/2018.

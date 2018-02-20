@@ -1,4 +1,4 @@
-package com.example.marshallnw18.wilksv2;
+package com.example.marshallnw18.virtus;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 
 /**

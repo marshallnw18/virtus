@@ -1,7 +1,5 @@
-package com.example.marshallnw18.wilksv2;
+package com.example.marshallnw18.virtus;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,11 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-
-import static android.R.attr.fragment;
 
 public class MainActivity extends AppCompatActivity {
     public DatabaseHelper mDatabaseHelper;

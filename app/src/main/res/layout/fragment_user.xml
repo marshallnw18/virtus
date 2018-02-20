@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.marshallnw18.wilksv2.UserFragment">
+    tools:context="com.example.marshallnw18.virtus.UserFragment">
 
     <!--Shared Preferences for saving editText state between fragment switches-->
     <!--https://stackoverflow.com/questions/38037599/saving-reloading-edittext-value-when-switching-between-fragments-->

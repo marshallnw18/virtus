@@ -1,4 +1,4 @@
-package com.example.marshallnw18.wilksv2;
+package com.example.marshallnw18.virtus;
 
 /**
  * Created by marshallnw18 on 2/19/2018.
@@ -38,6 +38,7 @@ public class CircularProgressBar extends View {
     private int mTextColor = Color.BLACK;       // Progress text color
 
     private final Paint mPaint;                 // Allocate paint outside onDraw to avoid unnecessary object creation
+
 
     public CircularProgressBar(Context context) {
         this(context, null);
@@ -93,7 +94,8 @@ public class CircularProgressBar extends View {
         int xPos = (canvas.getWidth() / 2);
         int yPos = (int) ((canvas.getHeight() / 2) - ((mPaint.descent() + mPaint.ascent()) / 2)) ;
 
-        canvas.drawText(calcProgressFromSweepAngle(mSweepAngle) + "%", xPos, yPos, mPaint);
+        //canvas.drawText(calcProgressFromSweepAngle(mSweepAngle) + "%", xPos, yPos, mPaint);
+        canvas.drawText(calcProgressFromSweepAngle(mSweepAngle) + "", xPos, yPos, mPaint);
     }
 
     private float calcSweepAngleFromProgress(int progress) {

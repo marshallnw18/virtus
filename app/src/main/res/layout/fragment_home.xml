@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.marshallnw18.wilksv2.HomeFragment">
+    tools:context="com.example.marshallnw18.virtus.HomeFragment">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_home_1"
         android:layout_width="match_parent"
         android:layout_height="240dp"
@@ -27,31 +27,50 @@
             android:textAlignment="center" />
 
         <Space
-            android:layout_width="wrap_content"
-            android:layout_height="15dp" />
+            android:id="@+id/relSpace1"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_below="@+id/textView3"/>
 
-        <com.example.marshallnw18.wilksv2.CircularProgressBar
+        <com.example.marshallnw18.virtus.CircularProgressBar
             android:id="@+id/circularProgress"
             android:layout_width="180dp"
             android:layout_height="180dp"
-            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/relSpace1"
             />
 
         <Space
-            android:layout_width="wrap_content"
-            android:layout_height="15dp" />
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_below="@id/circularProgress"
+            android:id="@+id/space" />
 
-       <TextView
+        <TextView
             android:id="@+id/tv_wilks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/space"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="74dp"
             android:layout_weight="1"
             android:ems="10"
+            android:textSize="30dp"
             android:gravity="center"
-            android:hint="Wilks Score = coeff * total"
-           android:visibility="gone"/>
+            android:hint="wilks" />
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/tv_wilks"
+            android:layout_marginTop="43dp"
+            android:text="Wilks Score"
+            android:gravity="center"/>
+
+    </RelativeLayout>
 
     <!--android:layout_below for relative positioning-->
     <!--Graph for Wilks changes over time-->
