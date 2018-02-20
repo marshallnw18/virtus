@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private DatabaseHelper mDatabaseHelper;
+    private CircularProgressBar mProgressBar;
     private TextView tv_wilks, tv_squat, tv_bench, tv_deadlift, tv_total;
     private String wilksData, squatData, benchData, deadliftData, totalData;
 
@@ -84,6 +86,14 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         mDatabaseHelper = new DatabaseHelper(getActivity());
+
+        //Circular Progress Bar Actions
+        mProgressBar = (CircularProgressBar) view.findViewById(R.id.circularProgress);
+        mProgressBar.setProgressWidth(30);
+        mProgressBar.setProgressColor(getResources().getColor(R.color.colorPrimary));
+        mProgressBar.showProgressText(false);
+        mProgressBar.setProgress(80);
+
         GraphView graph = (GraphView) view.findViewById(R.id.graph_wilks);
 
         tv_wilks = (TextView) view.findViewById(R.id.tv_wilks);
@@ -104,6 +114,8 @@ public class HomeFragment extends Fragment {
 
         totalData = Double.toString(calcTotal);
         double wilksScore = round(Double.parseDouble(wilksData) * calcTotal, 2);
+
+
 
         //TODO: Idea: Make function returning an array of the most recent five lifts and their accompanying date/time's. Use those as the data points
         //Line Data for Wilks Progression
