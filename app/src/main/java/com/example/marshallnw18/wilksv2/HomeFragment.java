@@ -17,6 +17,9 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,9 +103,9 @@ public class HomeFragment extends Fragment {
         double calcTotal = calcBench + calcSquat + calcDeadlift;
 
         totalData = Double.toString(calcTotal);
-        double wilksScore = Double.parseDouble(wilksData) * calcTotal;
+        double wilksScore = round(Double.parseDouble(wilksData) * calcTotal, 2);
 
-
+        //TODO: Idea: Make function returning an array of the most recent five lifts and their accompanying date/time's. Use those as the data points
         //Line Data for Wilks Progression
         LineGraphSeries<DataPoint> wilksSeries = new LineGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 1),
@@ -111,6 +114,7 @@ public class HomeFragment extends Fragment {
                 new DataPoint(3, 2),
                 new DataPoint(4, 6)
         });
+
         graph.addSeries(wilksSeries);
         graph.setTitle("Wilks Progression");
 
@@ -123,6 +127,14 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    //Rounding function found at: https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -274,14 +274,21 @@
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
+            android:layout_height="15dp" />
 
         <Button
             android:id="@+id/UpdateSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Update" />
+            android:text="Update"
+            android:background="@drawable/buttonshape"
+            android:textSize="15dp"
+            android:textColor="#FFFFFF"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="15dp" />
 
         <View style="@style/Divider"/>
 

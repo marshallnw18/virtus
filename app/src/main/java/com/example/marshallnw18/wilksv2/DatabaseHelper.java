@@ -163,8 +163,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    //TODO: Write more methods for populating textviews; Look into sorting by most recent DateTime and displaying singular value
-
     public String populateTDEEData(DatabaseHelper db){
         SQLiteDatabase SQ = db.getReadableDatabase();
         String[] columns = new String[]{NUTRITION_ID, COL_CARBS, COL_PROTEINS, COL_FATS, COL_TDEE, COL_NUTRITION_DATE};
