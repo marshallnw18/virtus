@@ -73,9 +73,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public static final String DATABASE_CREATE_NUTRITION = "create table "
             + TABLE_NUTRITION + "(" + NUTRITION_ID + " integer primary key autoincrement, "
-            + COL_CARBS + " int, "
-            + COL_PROTEINS + " int, "
-            + COL_FATS + " int, "
+            + COL_CARBS + " double, "
+            + COL_PROTEINS + " double, "
+            + COL_FATS + " double, "
             + COL_TDEE + " int, "
             + COL_NUTRITION_DATE + " text)";
 
@@ -141,7 +141,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public boolean addDataNutrition(int carbs, int proteins, int fats, int tdee){
+    public boolean addDataNutrition(double carbs, double proteins, double fats, int tdee){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -183,7 +183,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public String populateCarbData(DatabaseHelper db){
         SQLiteDatabase SQ = db.getReadableDatabase();
         String[] columns = new String[]{NUTRITION_ID, COL_CARBS, COL_PROTEINS, COL_FATS, COL_TDEE, COL_NUTRITION_DATE};
-        String orderBy = COL_CARBS + " DESC";
+        String orderBy = COL_NUTRITION_DATE + " DESC";
         String limit = "1";
 
         //SQL Query that orders based on the most recent DateTime entry
@@ -202,7 +202,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public String populateFatsData(DatabaseHelper db){
         SQLiteDatabase SQ = db.getReadableDatabase();
         String[] columns = new String[]{NUTRITION_ID, COL_CARBS, COL_PROTEINS, COL_FATS, COL_TDEE, COL_NUTRITION_DATE};
-        String orderBy = COL_FATS + " DESC";
+        String orderBy = COL_NUTRITION_DATE + " DESC";
         String limit = "1";
 
         //SQL Query that orders based on the most recent DateTime entry
@@ -221,7 +221,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public String populateProteinData(DatabaseHelper db){
         SQLiteDatabase SQ = db.getReadableDatabase();
         String[] columns = new String[]{NUTRITION_ID, COL_CARBS, COL_PROTEINS, COL_FATS, COL_TDEE, COL_NUTRITION_DATE};
-        String orderBy = COL_PROTEINS + " DESC";
+        String orderBy = COL_NUTRITION_DATE + " DESC";
         String limit = "1";
 
         //SQL Query that orders based on the most recent DateTime entry
@@ -240,7 +240,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public String populateWilksData(DatabaseHelper db){
         SQLiteDatabase SQ = db.getReadableDatabase();
         String[] columns = new String[]{LIFTS_ID, COL_SQUAT, COL_BENCH, COL_DEADLIFT, COL_WILKS, COL_LIFTS_DATE};
-        String orderBy = COL_WILKS + " DESC";
+        String orderBy = COL_LIFTS_DATE + " DESC";
         String limit = "1";
 
         //SQL Query that orders based on the most recent DateTime entry
@@ -259,7 +259,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public String populateBenchData(DatabaseHelper db){
         SQLiteDatabase SQ = db.getReadableDatabase();
         String[] columns = new String[]{LIFTS_ID, COL_SQUAT, COL_BENCH, COL_DEADLIFT, COL_WILKS, COL_LIFTS_DATE};
-        String orderBy = COL_BENCH + " DESC";
+        String orderBy = COL_LIFTS_DATE + " DESC";
         String limit = "1";
 
         //SQL Query that orders based on the most recent DateTime entry
@@ -278,7 +278,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public String populateSquatData(DatabaseHelper db){
         SQLiteDatabase SQ = db.getReadableDatabase();
         String[] columns = new String[]{LIFTS_ID, COL_SQUAT, COL_BENCH, COL_DEADLIFT, COL_WILKS, COL_LIFTS_DATE};
-        String orderBy = COL_SQUAT + " DESC";
+        String orderBy = COL_LIFTS_DATE + " DESC";
         String limit = "1";
 
         //SQL Query that orders based on the most recent DateTime entry
@@ -297,7 +297,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public String populateDeadliftData(DatabaseHelper db){
         SQLiteDatabase SQ = db.getReadableDatabase();
         String[] columns = new String[]{LIFTS_ID, COL_SQUAT, COL_BENCH, COL_DEADLIFT, COL_WILKS, COL_LIFTS_DATE};
-        String orderBy = COL_DEADLIFT + " DESC";
+        String orderBy = COL_LIFTS_DATE + " DESC";
         String limit = "1";
 
         //SQL Query that orders based on the most recent DateTime entry

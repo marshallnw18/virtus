@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,7 +88,6 @@ public class HomeFragment extends Fragment {
         mProgressBar.setProgressWidth(30);
         mProgressBar.setProgressColor(getResources().getColor(R.color.colorPrimary));
         mProgressBar.showProgressText(false);
-        mProgressBar.setProgress(80);
 
         GraphView graphTotal = (GraphView) view.findViewById(R.id.graph_wilks);
 
@@ -108,13 +108,15 @@ public class HomeFragment extends Fragment {
         double calcTotal = calcBench + calcSquat + calcDeadlift;
 
         totalData = Double.toString(calcTotal);
-        double wilksScore = round(Double.parseDouble(wilksData) * calcTotal, 2);
+        Log.d("Home Fragment", wilksData);
+        Log.d("Home Fragment", Double.toString(calcTotal));
+        double wilksScore = round(Double.parseDouble(wilksData) * (calcTotal * 0.453592), 2);
 
-
+        wilksProgressBar((int) wilksScore);
 
         //TODO: Idea: Make function returning an array of the most recent five lifts and their accompanying date/time's. Use those as the data points
         //Line Data for Wilks Progression
-        LineGraphSeries<DataPoint> totalSeries = new LineGraphSeries<>(new DataPoint[] {
+        LineGraphSeries<DataPoint> liftTotalSeries = new LineGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 1),
                 new DataPoint(1, 5),
                 new DataPoint(2, 3),
@@ -122,7 +124,7 @@ public class HomeFragment extends Fragment {
                 new DataPoint(4, 6)
         });
 
-        graphTotal.addSeries(totalSeries);
+        graphTotal.addSeries(liftTotalSeries);
         graphTotal.setTitle("Squat/Bench/Deadlift Progression");
 
         tv_squat.setText(squatData);
@@ -132,6 +134,11 @@ public class HomeFragment extends Fragment {
         tv_wilks.setText(Double.toString(wilksScore));
 
         return view;
+    }
+
+    public void wilksProgressBar(int wilksScore){
+        int progressToNextStage = (wilksScore % 10) * 10;
+        mProgressBar.setProgress(progressToNextStage);
     }
 
     //Rounding function found at: https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places

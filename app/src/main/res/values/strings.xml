@@ -7,8 +7,8 @@
     <string name="title_user">User</string>
     <string name="title_workout">Workout</string>
 
-    <string name="gender_prompt">Select Gender...</string>
-    <string name="activity_prompt">Select Current Weekly Activity Level...</string>
+    <string name="gender_prompt">Select Gender</string>
+    <string name="activity_prompt">Select Current Weekly Activity Level</string>
 
     <string name="proteinValue">100</string>
     <string name="proteinDisplay">&proteinValue;(g) \nProtein </string>

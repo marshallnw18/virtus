@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,9 +95,9 @@ public class UserFragment extends Fragment {
 
 
         tvTDEE.setText(TDEEdata);
-        tvCarbs.setText(carbData);
-        tvFats.setText(fatsData);
-        tvProteins.setText(proteinData);
+        tvCarbs.setText(carbData + "g");
+        tvFats.setText(fatsData + "g");
+        tvProteins.setText(proteinData + "g");
 
         //Creating Gender Spinner for gender selection
         final Spinner genderSpinner = (Spinner) view.findViewById(R.id.genderspinner);
@@ -127,6 +130,7 @@ public class UserFragment extends Fragment {
                 int finalSquat = Integer.parseInt(squat);
                 int finalBench = Integer.parseInt(bench);
                 int finalDeadlift = Integer.parseInt(deadlift);
+                double finalCarb, finalProtein, finalFat;
                 double finalWilks;
                 double bmr, tdee;
 
@@ -156,12 +160,18 @@ public class UserFragment extends Fragment {
                 System.out.println("Total Daily Energy Expenditure: " + tdee);
 
                 finalWilks = calculateWilks(finalWeight, gender);
+                finalProtein = 0.9 * finalWeight;
+                finalFat = (0.2 * tdee) / 9;
+                finalCarb = ((tdee
+                            - ((finalProtein * 4) + (0.2 * tdee)))
+                            / 4.0);
 
+                //TDEE – (Protein Intake + Fat Intake) = 2,475 Calories – (495 + 450) Calories = 1,530 Calories
                  //TODO: Macro calculations
 
                 addDataUsers(finalHeight, finalWeight, gender);
                 addDataLifts(finalSquat, finalBench, finalDeadlift, finalWilks);
-                addDataNutrition(0, 0, 0, (int) tdee);
+                addDataNutrition(round(finalCarb, 1), round(finalProtein, 1), round(finalFat,1), (int) tdee);
 
                 //TODO: Update these functions with correct functions that return macro breakdowns
                 TDEEdata = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
@@ -171,13 +181,21 @@ public class UserFragment extends Fragment {
 
 
                 tvTDEE.setText(TDEEdata);
-                tvCarbs.setText(carbData);
-                tvFats.setText(fatsData);
-                tvProteins.setText(proteinData);
+                tvCarbs.setText(carbData + "g");
+                tvFats.setText(fatsData + "g");
+                tvProteins.setText(proteinData + "g");
             }
         });
 
         return view;
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
     public void addDataUsers (int height, int weight, String gender){
@@ -202,7 +220,7 @@ public class UserFragment extends Fragment {
         }
     }
 
-    public void addDataNutrition (int carbs, int proteins, int fats, int tdee){
+    public void addDataNutrition (double carbs, double proteins, double fats, int tdee){
 
         boolean insertData = mDatabaseHelper.addDataNutrition(carbs,proteins,fats, tdee);
 
@@ -213,7 +231,7 @@ public class UserFragment extends Fragment {
         }
     }
 
-    public double calculateWilks(int lifterWeight, String lifterGender){
+    public double calculateWilks(double lifterWeight, String lifterGender){
         double coeff;
         double a, b, c, d, e, f;
 
@@ -232,16 +250,17 @@ public class UserFragment extends Fragment {
             e = 4.731582 * Math.pow(10, -5);
             f = -9.054 * Math.pow(10, -8);
         }
+        lifterWeight = lifterWeight * 0.453592;
 
-        coeff = (500 /
-                (a + (b*lifterWeight) +
+        coeff = 500.0 /
+                (a + (b * lifterWeight) +
                 (c * (lifterWeight * lifterWeight)) +
                 (d * (lifterWeight * lifterWeight * lifterWeight)) +
-                (e * (lifterWeight * lifterWeight * lifterWeight * lifterWeight) +
-                (f * (lifterWeight * lifterWeight * lifterWeight * lifterWeight * lifterWeight)))));
+                (e * (lifterWeight * lifterWeight * lifterWeight * lifterWeight)) +
+                (f * (lifterWeight * lifterWeight * lifterWeight * lifterWeight * lifterWeight)));
 
         Log.d("User Fragment", "Wilks Coeff before cast: " + coeff);
-        Log.d("User Fragment", "Wilks Coeff after cast: " + (int) coeff);
+        Log.d("User Fragment", Double.toString(lifterWeight));
         return coeff;
     }
 
