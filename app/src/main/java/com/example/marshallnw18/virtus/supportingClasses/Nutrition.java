@@ -1,4 +1,4 @@
-package com.example.marshallnw18.virtus;
+package com.example.marshallnw18.virtus.supportingClasses;
 
 /**
  * Created by Nick Marshall on 1/22/2018.

@@ -4,9 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.marshallnw18.virtus.supportingClasses.Exercise;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -22,6 +29,8 @@ public class WorkoutFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    List<Exercise> exerciseList = new ArrayList<>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,7 +73,32 @@ public class WorkoutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_workout, container, false);
+        View view = inflater.inflate(R.layout.fragment_workout, container, false);
+
+        setInitialData();
+
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        MyAdapter myAdapter = new MyAdapter(getActivity(),exerciseList);
+        recyclerView.setAdapter(myAdapter);
+
+        return view;
+    }
+
+    private void setInitialData(){
+        exerciseList.add(new Exercise("text1","text1",R.mipmap.ic_launcher));
+        exerciseList.add(new Exercise("text2","text2",R.mipmap.ic_launcher));
+        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
+        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
+        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
+        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
+        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
+        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
+        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
+        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -1,67 +1,15 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.marshallnw18.virtus.WorkoutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <TableLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="200dip">
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TDEE"
-            android:layout_gravity="center"
-            android:textSize="25sp"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TDEE"
-                android:layout_gravity="center"
-                android:textSize="25sp"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TDEE"
-                android:layout_gravity="center"
-                android:textSize="25sp"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TDEE"
-                android:layout_gravity="center"
-                android:textSize="25sp"/>
-        </TableRow>
-
-
-    </TableLayout>
-</RelativeLayout>
+    
+</android.support.constraint.ConstraintLayout>
