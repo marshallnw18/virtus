@@ -33,6 +33,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.github.korre:android-circular-progress-bar:master'
+    compile 'com.android.support:cardview-v7:27.0.+'
+    compile 'com.android.support:recyclerview-v7:27.0.+'
 
 }
 

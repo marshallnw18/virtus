@@ -8,47 +8,34 @@
     android:orientation="vertical"
     tools:context="com.example.marshallnw18.virtus.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+      <!--  <android.support.design.widget.AppBarLayout
+            android:layout_height="56dp"
+            android:layout_width="match_parent">
+        </android.support.design.widget.AppBarLayout> -->
 
-        <ImageView
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/virtus_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:adjustViewBounds="true"
-            android:background="@color/colorPrimary"
-            android:cropToPadding="false"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_action_kizen_logo" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:menu="@menu/toolbarmenu"/>
 
-    </android.support.design.widget.AppBarLayout>
-
-    <FrameLayout
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <ScrollView
-            android:id="@+id/scroll_main"
+        <FrameLayout
+            android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
-                android:id="@+id/layout_main"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </RelativeLayout>
-        </ScrollView>
-    </FrameLayout>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation" />
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        </FrameLayout>
+    
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/navigation" />
 
 </LinearLayout>

@@ -24,7 +24,8 @@
             android:layout_alignParentTop="true"
             android:layout_weight="0.3"
             android:text="Lifter Classification"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:paddingTop="20dp"/>
 
         <Space
             android:id="@+id/relSpace1"

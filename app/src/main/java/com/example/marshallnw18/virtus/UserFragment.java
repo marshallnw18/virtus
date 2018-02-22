@@ -161,9 +161,9 @@ public class UserFragment extends Fragment {
 
                 finalWilks = calculateWilks(finalWeight, gender);
                 finalProtein = 0.9 * finalWeight;
-                finalFat = (0.2 * tdee) / 9;
+                finalFat = (0.25 * tdee) / 9;
                 finalCarb = ((tdee
-                            - ((finalProtein * 4) + (0.2 * tdee)))
+                            - ((finalProtein * 4) + (0.25 * tdee)))
                             / 4.0);
 
                 //TDEE – (Protein Intake + Fat Intake) = 2,475 Calories – (495 + 450) Calories = 1,530 Calories

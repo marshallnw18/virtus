@@ -17,7 +17,6 @@ import java.util.Date;
 public class DatabaseHelper extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "virtus.db";
-    //private static final String COLUMN_ID = "_id";
 
     /*
     https://www.androidhive.info/2013/09/android-sqlite-database-with-multiple-tables/

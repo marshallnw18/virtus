@@ -108,8 +108,6 @@ public class HomeFragment extends Fragment {
         double calcTotal = calcBench + calcSquat + calcDeadlift;
 
         totalData = Double.toString(calcTotal);
-        Log.d("Home Fragment", wilksData);
-        Log.d("Home Fragment", Double.toString(calcTotal));
         double wilksScore = round(Double.parseDouble(wilksData) * (calcTotal * 0.453592), 2);
 
         wilksProgressBar((int) wilksScore);
