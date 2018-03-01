@@ -16,8 +16,8 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="16dp" />
@@ -28,10 +28,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/imageView"
+                android:text="Bench Press"
                 android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/textView2"
+                android:text="5 reps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView"

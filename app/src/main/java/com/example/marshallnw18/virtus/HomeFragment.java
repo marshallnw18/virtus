@@ -97,6 +97,10 @@ public class HomeFragment extends Fragment {
         tv_deadlift = (TextView) view.findViewById(R.id.tv_home_deadliftDisplay);
         tv_total = (TextView) view.findViewById(R.id.tv_home_totalDisplay);
 
+        //Added to ensure app doesn't crash on first run
+
+        checkDatabasePopulation();
+
         wilksData = mDatabaseHelper.populateWilksData(mDatabaseHelper);
         squatData = mDatabaseHelper.populateSquatData(mDatabaseHelper);
         benchData = mDatabaseHelper.populateBenchData(mDatabaseHelper);
@@ -146,6 +150,24 @@ public class HomeFragment extends Fragment {
         BigDecimal bd = new BigDecimal(value);
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
+    }
+
+    public void checkDatabasePopulation(){
+        if(mDatabaseHelper.populateSquatData(mDatabaseHelper) != null && mDatabaseHelper.populateSquatData(mDatabaseHelper).isEmpty()){
+            Log.d("HOME FRAGMENT", "SQLite Database Is Empty...Populating With Default Values");
+            addDataLifts(0,0,0,0);
+        }
+    }
+
+    public void addDataLifts (int squat, int bench, int deadlift, double wilks){
+
+        boolean insertData = mDatabaseHelper.addDataLifts(squat,bench,deadlift, wilks);
+
+        if(insertData = true){
+            Log.d("User Fragment","Lift data successfully inserted");
+        } else {
+            Log.d("User Fragment","Lift data insertion failed");
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -3,6 +3,7 @@ package com.example.marshallnw18.virtus;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,6 +73,8 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
+
+        this.getRetainInstance();
 
         mDatabaseHelper = new DatabaseHelper(getActivity());
         UpdateSettings = view.findViewById(R.id.UpdateSettings);
@@ -166,8 +169,7 @@ public class UserFragment extends Fragment {
                             - ((finalProtein * 4) + (0.25 * tdee)))
                             / 4.0);
 
-                //TDEE – (Protein Intake + Fat Intake) = 2,475 Calories – (495 + 450) Calories = 1,530 Calories
-                 //TODO: Macro calculations
+                //TODO: Macro calculations
 
                 addDataUsers(finalHeight, finalWeight, gender);
                 addDataLifts(finalSquat, finalBench, finalDeadlift, finalWilks);
@@ -289,4 +291,6 @@ public class UserFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

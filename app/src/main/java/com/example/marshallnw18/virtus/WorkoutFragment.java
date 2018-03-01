@@ -89,9 +89,9 @@ public class WorkoutFragment extends Fragment {
     }
 
     private void setInitialData(){
-        exerciseList.add(new Exercise("text1","text1",R.mipmap.ic_launcher));
-        exerciseList.add(new Exercise("text2","text2",R.mipmap.ic_launcher));
-        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
+        exerciseList.add(new Exercise("Bench Press","5x5",R.drawable.benchpress));
+        exerciseList.add(new Exercise("Squat","5x5",R.drawable.squats));
+        exerciseList.add(new Exercise("Deadlift","5x5",R.drawable.deadlift));
         exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
         exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
         exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
