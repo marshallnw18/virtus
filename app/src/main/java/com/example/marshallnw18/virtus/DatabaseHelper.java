@@ -175,7 +175,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
             result = c.getString(indexTDEE);
         }
-
+        c.close();
         return result;
     }
 
@@ -194,7 +194,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
             result = c.getString(indexCarbs);
         }
-
+        c.close();
         return result;
     }
 
@@ -213,7 +213,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
             result = c.getString(indexFats);
         }
-
+        c.close();
         return result;
     }
 
@@ -232,7 +232,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
             result = c.getString(indexProteins);
         }
-
+        c.close();
         return result;
     }
 
@@ -251,7 +251,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
             result = c.getString(indexWilks);
         }
-
+        c.close();
         return result;
     }
 
@@ -270,7 +270,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
             result = c.getString(indexBench);
         }
-
+        c.close();
         return result;
     }
 
@@ -289,7 +289,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
             result = c.getString(indexSquat);
         }
-
+        c.close();
         return result;
     }
 
@@ -309,6 +309,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             result = c.getString(indexDeadlift);
         }
 
+        c.close();
         return result;
     }
 

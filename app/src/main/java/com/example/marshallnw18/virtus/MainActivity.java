@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
-    public DatabaseHelper mDatabaseHelper;
 
     //Inflating top toolbar menu show that it appears properly
     @Override

@@ -127,16 +127,7 @@ public class UserFragment extends Fragment {
         activityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         activitySpinner.setAdapter(activityAdapter);
 
-        /* Sets the text of the EditText views with strings that show the numbers last entered by the user; Default values are 0 */
-        editAge.setText(sharedPreferences.getString("userAge", "18"));
-        editWeight.setText(sharedPreferences.getString("userWeight", "180"));
-        editHeight.setText(sharedPreferences.getString("userHeight", "70"));
-        editSquat.setText(sharedPreferences.getString("userSquat", "0"));
-        editBench.setText(sharedPreferences.getString("userBench", "0"));
-        editDeadlift.setText(sharedPreferences.getString("userDeadlift", "0"));
-
         //TODO: Add prompt if any EditText Views are null when UpdateSettings is clicked
-        //TODO: SharedPreferences for Spinners
         //TODO: Toast/Prompt to confirm updated data
 
         /* Item Selected Listener for pulling data from Gender Spinner */
@@ -167,6 +158,17 @@ public class UserFragment extends Fragment {
             }
         });
 
+        /* Sets the text of the EditText views with strings that show the numbers last entered by the user; Default values are 0 */
+        editAge.setText(sharedPreferences.getString("userAge", "18"));
+        editWeight.setText(sharedPreferences.getString("userWeight", "180"));
+        editHeight.setText(sharedPreferences.getString("userHeight", "70"));
+        editSquat.setText(sharedPreferences.getString("userSquat", "0"));
+        editBench.setText(sharedPreferences.getString("userBench", "0"));
+        editDeadlift.setText(sharedPreferences.getString("userDeadlift", "0"));
+
+        /* Sets the Spinner values with the most recently updated selections from the user; Defaults to the first value on the list (index = 0) */
+        genderSpinner.setSelection(sharedPreferences.getInt("userGender", 0));
+        activitySpinner.setSelection(sharedPreferences.getInt("userActivityLevel", 0));
 
         //Button activity for updating settings
         UpdateSettings.setOnClickListener(new View.OnClickListener() {
@@ -234,6 +236,8 @@ public class UserFragment extends Fragment {
                 editor.putString("userSquat", editSquat.getText().toString());
                 editor.putString("userBench", editBench.getText().toString());
                 editor.putString("userDeadlift", editDeadlift.getText().toString());
+                editor.putInt("userGender", genderSpinner.getSelectedItemPosition());
+                editor.putInt("userActivityLevel", activitySpinner.getSelectedItemPosition());
                 editor.commit();
 
 
@@ -358,14 +362,12 @@ public class UserFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
             Log.d("Lifecycle", "Activity Created");
-          //  editAge.setText(savedInstanceState.getString(AGE));
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //outState.putString(AGE, editAge.getText().toString());
         Log.d("Lifecycle", "SaveInstance executed");
     }
 
