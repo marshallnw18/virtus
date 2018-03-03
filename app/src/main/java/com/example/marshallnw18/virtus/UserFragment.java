@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +42,7 @@ public class UserFragment extends Fragment {
     private TextView tvTDEE, tvCarbs, tvProteins, tvFats;
 
     private String TDEEdata, carbData, proteinData, fatsData;
+    private String gender, activityLevel;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -137,6 +139,35 @@ public class UserFragment extends Fragment {
         //TODO: SharedPreferences for Spinners
         //TODO: Toast/Prompt to confirm updated data
 
+        /* Item Selected Listener for pulling data from Gender Spinner */
+        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                gender = genderSpinner.getSelectedItem().toString();
+                Log.d("Gender Spinner", "Gender: " + gender);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //TODO Auto-generated method stub
+            }
+        });
+
+        /* Item Selected Listener for pulling data from Activity Level Spinner */
+        activitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                activityLevel = activitySpinner.getSelectedItem().toString();
+                Log.d("Activity Level", "Activity Level: " + activityLevel);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //TODO Auto-generated method stub
+            }
+        });
+
+
         //Button activity for updating settings
         UpdateSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,36 +184,29 @@ public class UserFragment extends Fragment {
                 int bench = Integer.parseInt(editBench.getText().toString());
                 int deadlift = Integer.parseInt(editDeadlift.getText().toString());
 
-                /* Saving Spinner item selection to variables */
-                //TODO: Fix error with Spinner being disposed
-                String gender = genderSpinner.getSelectedItem().toString();
-                String activityLevel = activitySpinner.getSelectedItem().toString();
-
                 double finalCarb, finalProtein, finalFat;
                 double finalWilks;
                 double bmr, tdee;
 
-                if(gender == "Male"){
+                if(gender.equals("Male")){
                     bmr = 66 + (6.23 * weight) + (12.7 * height) - (6.8 * age);
                 } else {
                     bmr = 655 + (4.35 * weight) + (4.7 * height) - (4.7 * age);
                 }
 
-                if(activityLevel == "Sedentary: Little or no Exercise"){
+                if(activityLevel.equals("Sedentary: Little or no Exercise")){
                     tdee = bmr * 1.2;
-                } else if (activityLevel == "Lightly Active: Exercise 1-3 days per week"){
+                } else if (activityLevel.equals("Lightly Active: Exercise 1-3 days per week")){
                     tdee = bmr * 1.375;
-                } else if (activityLevel == "Moderately Active: Exercise 3-5 days per week"){
+                } else if (activityLevel.equals("Moderately Active: Exercise 3-5 days per week")){
                     tdee = bmr * 1.55;
-                } else if (activityLevel == "Very Active: Exercise 6-7 days per week"){
+                } else if (activityLevel.equals("Very Active: Exercise 6-7 days per week")){
                     tdee = bmr * 1.725;
                 } else {
                     tdee = bmr * 1.9;
                 }
 
-                //TODO:Check for correctness
-                System.out.println(activityLevel);
-                System.out.println("Total Daily Energy Expenditure: " + tdee);
+                Log.d("tdee","Total Daily Energy Expenditure: " + tdee);
 
                 finalWilks = calculateWilks((double)weight, gender);
                 finalProtein = 0.9 * weight;
@@ -192,6 +216,7 @@ public class UserFragment extends Fragment {
                             / 4.0);
 
                 Log.d("USER FRAGMENT", "Wilks: " + finalWilks);
+
                 addDataUsers(height, weight, gender);
                 addDataLifts(squat, bench, deadlift, finalWilks);
                 addDataNutrition(round(finalCarb, 1), round(finalProtein, 1), round(finalFat,1), (int) tdee);
@@ -220,7 +245,6 @@ public class UserFragment extends Fragment {
         });
 
         //TODO: Override methods to set cursor to the end of EditTexts when clicked on
-
 
         return view;
     }
@@ -271,7 +295,7 @@ public class UserFragment extends Fragment {
         double coeff;
         double a, b, c, d, e, f;
 
-        if(lifterGender == "Male"){
+        if(lifterGender.equals("Male")){
             a = -216.0475144;
             b = 16.2606339;
             c = -0.002388645;

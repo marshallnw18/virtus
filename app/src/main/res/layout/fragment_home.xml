@@ -73,6 +73,11 @@
 
     </RelativeLayout>
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_below="@id/circularProgress" />
+
     <!--android:layout_below for relative positioning-->
     <!--Graph for Wilks changes over time-->
         <com.jjoe64.graphview.GraphView
