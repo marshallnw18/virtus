@@ -1,10 +1,12 @@
 package com.example.marshallnw18.virtus;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,13 +32,13 @@ import java.math.RoundingMode;
 public class UserFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    SharedPreferences sharedPreferences;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private DatabaseHelper mDatabaseHelper;
     private Button UpdateSettings;
     private EditText editHeight, editWeight, editAge, editSquat, editBench, editDeadlift;
     private TextView tvTDEE, tvCarbs, tvProteins, tvFats;
-
 
     private String TDEEdata, carbData, proteinData, fatsData;
 
@@ -63,6 +65,7 @@ public class UserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -70,15 +73,20 @@ public class UserFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        sharedPreferences = this.getActivity().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
         View view = inflater.inflate(R.layout.fragment_user, container, false);
 
         this.getRetainInstance();
 
+        /* Instantiating DBHelper for this Fragment's Context */
         mDatabaseHelper = new DatabaseHelper(getActivity());
+
+        /* Assigning Button view to a variable */
         UpdateSettings = view.findViewById(R.id.UpdateSettings);
 
+        /* Assigning EditText views to variables */
         editHeight = view.findViewById(R.id.editHeight);
         editWeight = view.findViewById(R.id.editWeight);
         editAge = view.findViewById(R.id.editAge);
@@ -86,21 +94,24 @@ public class UserFragment extends Fragment {
         editSquat = view.findViewById(R.id.editSquat);
         editDeadlift = view.findViewById(R.id.editDeadlift);
 
+        /* Assigning TextView views to variables */
         tvTDEE = view.findViewById(R.id.tv_tdee);
         tvProteins = view.findViewById(R.id.tv_proteins);
         tvCarbs = view.findViewById(R.id.tv_carbs);
         tvFats = view.findViewById(R.id.tv_fats);
 
+        /* Assigning individual data to it's appropriate Database reference */
         TDEEdata = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
         carbData = mDatabaseHelper.populateCarbData(mDatabaseHelper);
         fatsData = mDatabaseHelper.populateFatsData(mDatabaseHelper);
         proteinData = mDatabaseHelper.populateProteinData(mDatabaseHelper);
 
-
+        /* Populating TextViews with their data on View creation */
         tvTDEE.setText(TDEEdata);
         tvCarbs.setText(carbData + "g");
         tvFats.setText(fatsData + "g");
         tvProteins.setText(proteinData + "g");
+
 
         //Creating Gender Spinner for gender selection
         final Spinner genderSpinner = (Spinner) view.findViewById(R.id.genderspinner);
@@ -108,43 +119,54 @@ public class UserFragment extends Fragment {
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(genderAdapter);
 
-        //Creating spinner for Activity Levels
+        //Creating spinner for User Activity Levels
         final Spinner activitySpinner = (Spinner) view.findViewById(R.id.activityspinner);
         ArrayAdapter<CharSequence> activityAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.activity_options, android.R.layout.simple_spinner_item);
         activityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         activitySpinner.setAdapter(activityAdapter);
 
+        /* Sets the text of the EditText views with strings that show the numbers last entered by the user; Default values are 0 */
+        editAge.setText(sharedPreferences.getString("userAge", "18"));
+        editWeight.setText(sharedPreferences.getString("userWeight", "180"));
+        editHeight.setText(sharedPreferences.getString("userHeight", "70"));
+        editSquat.setText(sharedPreferences.getString("userSquat", "0"));
+        editBench.setText(sharedPreferences.getString("userBench", "0"));
+        editDeadlift.setText(sharedPreferences.getString("userDeadlift", "0"));
+
+        //TODO: Add prompt if any EditText Views are null when UpdateSettings is clicked
+        //TODO: SharedPreferences for Spinners
+        //TODO: Toast/Prompt to confirm updated data
+
         //Button activity for updating settings
         UpdateSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String age = editAge.getText().toString();
-                String height = editHeight.getText().toString();
-                String weight = editWeight.getText().toString();
-                String squat = editSquat.getText().toString();
-                String bench = editBench.getText().toString();
-                String deadlift = editDeadlift.getText().toString();
+                /* Instantiating an editor to allow for changses to user's SharedPreferences when they change data */
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                /* Pulling Strings from user inputs on the page. User entries are converted to Strings and then parsed for numerical values */
+                //TODO: If any of these == null, pull from the most recent entry in the database as the entry. Then commit that last entry as the current one as well.
+                int age = Integer.parseInt(editAge.getText().toString());
+                int height = Integer.parseInt(editHeight.getText().toString());
+                int weight = Integer.parseInt(editWeight.getText().toString());
+                int squat = Integer.parseInt(editSquat.getText().toString());
+                int bench = Integer.parseInt(editBench.getText().toString());
+                int deadlift = Integer.parseInt(editDeadlift.getText().toString());
+
+                /* Saving Spinner item selection to variables */
+                //TODO: Fix error with Spinner being disposed
                 String gender = genderSpinner.getSelectedItem().toString();
                 String activityLevel = activitySpinner.getSelectedItem().toString();
 
-                int finalAge = Integer.parseInt(age);
-                int finalHeight = Integer.parseInt(height);
-                int finalWeight = (int)(Integer.parseInt(weight));
-                int finalSquat = Integer.parseInt(squat);
-                int finalBench = Integer.parseInt(bench);
-                int finalDeadlift = Integer.parseInt(deadlift);
                 double finalCarb, finalProtein, finalFat;
                 double finalWilks;
                 double bmr, tdee;
 
-                //TODO: Fix error with Spinner being disposed
-
                 if(gender == "Male"){
-                    bmr = 66 + (6.23 * finalWeight) + (12.7 * finalHeight) - (6.8 * finalAge);
+                    bmr = 66 + (6.23 * weight) + (12.7 * height) - (6.8 * age);
                 } else {
-                    bmr = 655 + (4.35 * finalWeight) + (4.7 * finalHeight) - (4.7 * finalAge);
+                    bmr = 655 + (4.35 * weight) + (4.7 * height) - (4.7 * age);
                 }
-                Log.d("User Fragment", "BMR/Gender: " + bmr + "/" + gender);
 
                 if(activityLevel == "Sedentary: Little or no Exercise"){
                     tdee = bmr * 1.2;
@@ -162,24 +184,32 @@ public class UserFragment extends Fragment {
                 System.out.println(activityLevel);
                 System.out.println("Total Daily Energy Expenditure: " + tdee);
 
-                finalWilks = calculateWilks(finalWeight, gender);
-                finalProtein = 0.9 * finalWeight;
+                finalWilks = calculateWilks((double)weight, gender);
+                finalProtein = 0.9 * weight;
                 finalFat = (0.25 * tdee) / 9;
                 finalCarb = ((tdee
                             - ((finalProtein * 4) + (0.25 * tdee)))
                             / 4.0);
 
-                //TODO: Macro calculations
-
-                addDataUsers(finalHeight, finalWeight, gender);
-                addDataLifts(finalSquat, finalBench, finalDeadlift, finalWilks);
+                Log.d("USER FRAGMENT", "Wilks: " + finalWilks);
+                addDataUsers(height, weight, gender);
+                addDataLifts(squat, bench, deadlift, finalWilks);
                 addDataNutrition(round(finalCarb, 1), round(finalProtein, 1), round(finalFat,1), (int) tdee);
 
-                //TODO: Update these functions with correct functions that return macro breakdowns
+
                 TDEEdata = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
                 carbData = mDatabaseHelper.populateCarbData(mDatabaseHelper);
                 fatsData = mDatabaseHelper.populateFatsData(mDatabaseHelper);
                 proteinData = mDatabaseHelper.populateProteinData(mDatabaseHelper);
+
+                /* Updated user input values are added to Shared Preferences */
+                editor.putString("userAge", editAge.getText().toString());
+                editor.putString("userHeight", editHeight.getText().toString());
+                editor.putString("userWeight", editWeight.getText().toString());
+                editor.putString("userSquat", editSquat.getText().toString());
+                editor.putString("userBench", editBench.getText().toString());
+                editor.putString("userDeadlift", editDeadlift.getText().toString());
+                editor.commit();
 
 
                 tvTDEE.setText(TDEEdata);
@@ -189,9 +219,13 @@ public class UserFragment extends Fragment {
             }
         });
 
+        //TODO: Override methods to set cursor to the end of EditTexts when clicked on
+
+
         return view;
     }
 
+    //Public function that's used for rounding a double to x number of places past the decimal
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
@@ -200,8 +234,8 @@ public class UserFragment extends Fragment {
         return bd.doubleValue();
     }
 
-    public void addDataUsers (int height, int weight, String gender){
 
+    public void addDataUsers (int height, int weight, String gender){
         boolean insertData = mDatabaseHelper.addDataUsers(height,weight,gender);
 
         if(insertData = true){
@@ -242,17 +276,18 @@ public class UserFragment extends Fragment {
             b = 16.2606339;
             c = -0.002388645;
             d = -0.00113732;
-            e = 7.01863 * Math.pow(10, -6);
-            f = -1.291 * Math.pow(10, -8);
+            e = 7.01863e-06;
+            f = -1.291e-08;
         } else {
             a = 594.31747775582;
             b = -27.23842536447;
             c = 0.82112226871;
             d = -0.00930733913;
-            e = 4.731582 * Math.pow(10, -5);
-            f = -9.054 * Math.pow(10, -8);
+            e = 4.731582e-05;
+            f = -9.054e-08;
         }
-        lifterWeight = lifterWeight * 0.453592;
+
+        lifterWeight *= 0.453592;
 
         coeff = 500.0 /
                 (a + (b * lifterWeight) +
@@ -261,8 +296,10 @@ public class UserFragment extends Fragment {
                 (e * (lifterWeight * lifterWeight * lifterWeight * lifterWeight)) +
                 (f * (lifterWeight * lifterWeight * lifterWeight * lifterWeight * lifterWeight)));
 
-        Log.d("User Fragment", "Wilks Coeff before cast: " + coeff);
-        Log.d("User Fragment", Double.toString(lifterWeight));
+        Log.d("calculateWilks", "Weight: " + lifterWeight);
+        Log.d("calculateWilks", "Gender: " + lifterGender);
+        Log.d("calculateWilks", "Wilks Coeff: " + coeff);
+
         return coeff;
     }
 
@@ -292,5 +329,31 @@ public class UserFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            Log.d("Lifecycle", "Activity Created");
+          //  editAge.setText(savedInstanceState.getString(AGE));
+        }
+    }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //outState.putString(AGE, editAge.getText().toString());
+        Log.d("Lifecycle", "SaveInstance executed");
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d("Lifecycle", "onPause executed");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d("Lifecycle", "onResume executed");
+    }
 }

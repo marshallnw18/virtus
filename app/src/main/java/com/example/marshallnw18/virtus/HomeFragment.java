@@ -141,6 +141,15 @@ public class HomeFragment extends Fragment {
     public void wilksProgressBar(int wilksScore){
         int progressToNextStage = (wilksScore % 10) * 10;
         mProgressBar.setProgress(progressToNextStage);
+
+        //TODO: Update progress increments based on AVG Wilks jumps: http://ironstrong.org/topic/1042-strength-standards-beginner-intermediate-advanced/
+    }
+
+    public String calculateLifterClassification(int wilksScore){
+        String lifterClassification = "";
+        //TODO: Implement Lifter Classification Method: http://ironstrong.org/topic/1042-strength-standards-beginner-intermediate-advanced/
+
+        return lifterClassification;
     }
 
     //Rounding function found at: https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
