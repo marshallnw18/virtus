@@ -1,5 +1,6 @@
 package com.example.marshallnw18.virtus;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -39,6 +41,8 @@ public class HomeFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
+    private double wilksScore;
 
     private OnFragmentInteractionListener mListener;
 
@@ -93,7 +97,7 @@ public class HomeFragment extends Fragment {
         tv_bench = (TextView) view.findViewById(R.id.tv_home_benchDisplay);
         tv_deadlift = (TextView) view.findViewById(R.id.tv_home_deadliftDisplay);
         tv_total = (TextView) view.findViewById(R.id.tv_home_totalDisplay);
-        tv_lifterClassification = (TextView) view.findViewById(R.id.tvLifterClassification);
+        //tv_lifterClassification = (TextView) view.findViewById(R.id.tvLifterClassification);
         //Added to ensure app doesn't crash on first run
 
         checkDatabasePopulation();
@@ -110,7 +114,7 @@ public class HomeFragment extends Fragment {
         double calcTotal = calcBench + calcSquat + calcDeadlift;
 
         totalData = Double.toString(calcTotal);
-        double wilksScore = round(Double.parseDouble(wilksData) * (calcTotal * 0.453592), 2);
+        wilksScore = round(Double.parseDouble(wilksData) * (calcTotal * 0.453592), 2);
 
         wilksProgressBar((int) wilksScore);
 
@@ -178,7 +182,32 @@ public class HomeFragment extends Fragment {
         tv_deadlift.setText(deadliftData);
         tv_total.setText(totalData);
         tv_wilks.setText(Double.toString(wilksScore));
-        tv_lifterClassification.setText(calculateLifterClassification((int)wilksScore, Integer.parseInt(userWeightData)));
+        //tv_lifterClassification.setText(calculateLifterClassification((int)wilksScore, Integer.parseInt(userWeightData)));
+
+        tv_wilks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(getActivity());
+
+                dialog.setContentView(R.layout.dialog);
+                dialog.setTitle("Information!");
+
+                TextView dialogText = (TextView) dialog.findViewById(R.id.dialogTextView);
+                dialogText.setText("Your current lifter classification is: " + calculateLifterClassification((int)wilksScore, Integer.parseInt(userWeightData)));
+
+                Button dialogButton = (Button) dialog.findViewById(R.id.dialogButton);
+                dialogButton.setBackgroundResource(R.drawable.dialogbuttonshape);
+
+                dialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+        });
 
         return view;
     }
