@@ -97,9 +97,8 @@ public class HomeFragment extends Fragment {
         tv_bench = (TextView) view.findViewById(R.id.tv_home_benchDisplay);
         tv_deadlift = (TextView) view.findViewById(R.id.tv_home_deadliftDisplay);
         tv_total = (TextView) view.findViewById(R.id.tv_home_totalDisplay);
-        //tv_lifterClassification = (TextView) view.findViewById(R.id.tvLifterClassification);
-        //Added to ensure app doesn't crash on first run
 
+        //Added to ensure app doesn't crash on first run
         checkDatabasePopulation();
 
         wilksData = mDatabaseHelper.populateWilksData(mDatabaseHelper);
@@ -173,7 +172,7 @@ public class HomeFragment extends Fragment {
 
         series3.setColor(getResources().getColor(R.color.colorSecondary));
         series3.setBackgroundColor(getResources().getColor(R.color.colorSecondaryLight));
-        series3.setThickness(8);
+        series3.setThickness(4);
         series3.setDrawBackground(true);
         series3.setDrawDataPoints(true);
 
@@ -182,7 +181,6 @@ public class HomeFragment extends Fragment {
         tv_deadlift.setText(deadliftData);
         tv_total.setText(totalData);
         tv_wilks.setText(Double.toString(wilksScore));
-        //tv_lifterClassification.setText(calculateLifterClassification((int)wilksScore, Integer.parseInt(userWeightData)));
 
         tv_wilks.setOnClickListener(new View.OnClickListener() {
             @Override

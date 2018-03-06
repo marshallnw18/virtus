@@ -86,11 +86,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(DATABASE_CREATE_NUTRITION);
     }
 
-    /*
-    TODO: Review OnUpdate structuring for future DB implementations
-    https://thebhwgroup.com/blog/how-android-sqlite-onupgrade
-     */
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, "Upgrading database from version " + oldVersion + " to version " + newVersion);

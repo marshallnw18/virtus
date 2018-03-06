@@ -128,8 +128,6 @@ public class UserFragment extends Fragment {
         activityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         activitySpinner.setAdapter(activityAdapter);
 
-        //TODO: Add prompt if any EditText Views are null when UpdateSettings is clicked
-
         /* ItemSelected Listener for pulling data from Gender Spinner */
         genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -173,81 +171,101 @@ public class UserFragment extends Fragment {
                 /* Instantiating an editor to allow for changses to user's SharedPreferences when they change data */
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                /* Pulling Strings from user inputs on the page. User entries are converted to Strings and then parsed for numerical values */
-                //TODO: If any of these == null, pull from the most recent entry in the database as the entry. Then commit that last entry as the current one as well.
-                int age = Integer.parseInt(editAge.getText().toString());
-                int height = Integer.parseInt(editHeight.getText().toString());
-                int weight = Integer.parseInt(editWeight.getText().toString());
-                int squat = Integer.parseInt(editSquat.getText().toString());
-                int bench = Integer.parseInt(editBench.getText().toString());
-                int deadlift = Integer.parseInt(editDeadlift.getText().toString());
+            try {
 
-                double finalCarb, finalProtein, finalFat;
-                double finalWilks;
-                double bmr, tdee;
+                    /* Pulling Strings from user inputs on the page. User entries are converted to Strings and then parsed for numerical values */
+                    int age = Integer.parseInt(editAge.getText().toString());
+                    int height = Integer.parseInt(editHeight.getText().toString());
+                    int weight = Integer.parseInt(editWeight.getText().toString());
+                    int squat = Integer.parseInt(editSquat.getText().toString());
+                    int bench = Integer.parseInt(editBench.getText().toString());
+                    int deadlift = Integer.parseInt(editDeadlift.getText().toString());
 
-                /* Calculate BMR based on selected gender -- Used in TDEE formula */
-                if(gender.equals("Male")){
-                    bmr = 66 + (6.23 * weight) + (12.7 * height) - (6.8 * age);
-                } else {
-                    bmr = 655 + (4.35 * weight) + (4.7 * height) - (4.7 * age);
-                }
+                    double finalCarb, finalProtein, finalFat;
+                    double finalWilks;
+                    double bmr, tdee;
 
-                /* Apply appropriate TDEE multiplier to the user's BMR based on the selected activity level. Finds final TDEE count */
-                if(activityLevel.equals("Sedentary: Little or no Exercise")){
-                    tdee = bmr * 1.2;
-                } else if (activityLevel.equals("Lightly Active: Exercise 1-3 days per week")){
-                    tdee = bmr * 1.375;
-                } else if (activityLevel.equals("Moderately Active: Exercise 3-5 days per week")){
-                    tdee = bmr * 1.55;
-                } else if (activityLevel.equals("Very Active: Exercise 6-7 days per week")){
-                    tdee = bmr * 1.725;
-                } else {
-                    tdee = bmr * 1.9;
-                }
+                    /* Calculate BMR based on selected gender -- Used in TDEE formula */
+                    if(gender.equals("Male")){
+                        bmr = 66 + (6.23 * weight) + (12.7 * height) - (6.8 * age);
+                    } else {
+                        bmr = 655 + (4.35 * weight) + (4.7 * height) - (4.7 * age);
+                    }
 
-                /* Calculating the final numbers for the user's Wilks and macronutrient breakdowns */
-                finalWilks = calculateWilks((double)weight, gender);
-                //Macro breakdown based on a 30/35/35 ratio
-                finalProtein = (tdee * (0.3)) / 4;
-                finalFat = (0.35 * tdee) / 9;
-                finalCarb = (0.35 * tdee) / 4;
+                    /* Apply appropriate TDEE multiplier to the user's BMR based on the selected activity level. Finds final TDEE count */
+                    if(activityLevel.equals("Sedentary: Little or no Exercise")){
+                        tdee = bmr * 1.2;
+                    } else if (activityLevel.equals("Lightly Active: Exercise 1-3 days per week")){
+                        tdee = bmr * 1.375;
+                    } else if (activityLevel.equals("Moderately Active: Exercise 3-5 days per week")){
+                        tdee = bmr * 1.55;
+                    } else if (activityLevel.equals("Very Active: Exercise 6-7 days per week")){
+                        tdee = bmr * 1.725;
+                    } else {
+                        tdee = bmr * 1.9;
+                    }
 
-                /* Adding data to the SQLite database */
-                addDataUsers(height, weight, gender);
-                addDataLifts(squat, bench, deadlift, finalWilks);
-                addDataNutrition(round(finalCarb, 1), round(finalProtein, 1), round(finalFat,1), (int) tdee);
+                    /* Calculating the final numbers for the user's Wilks and macronutrient breakdowns */
+                    finalWilks = calculateWilks((double)weight, gender);
+                    //Macro breakdown based on a 30/35/35 ratio
+                    finalProtein = (tdee * (0.3)) / 4;
+                    finalFat = (0.35 * tdee) / 9;
+                    finalCarb = (0.35 * tdee) / 4;
 
-                /* Assigning variables to the SQLite data from the user's most recent entry */
-                TDEEdata = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
-                carbData = mDatabaseHelper.populateCarbData(mDatabaseHelper);
-                fatsData = mDatabaseHelper.populateFatsData(mDatabaseHelper);
-                proteinData = mDatabaseHelper.populateProteinData(mDatabaseHelper);
+                    /* Adding data to the SQLite database */
+                    addDataUsers(height, weight, gender);
+                    addDataLifts(squat, bench, deadlift, finalWilks);
+                    addDataNutrition(round(finalCarb, 1), round(finalProtein, 1), round(finalFat,1), (int) tdee);
 
-                /* Updated user input values are added to Shared Preferences */
-                editor.putString("userAge", editAge.getText().toString());
-                editor.putString("userHeight", editHeight.getText().toString());
-                editor.putString("userWeight", editWeight.getText().toString());
-                editor.putString("userSquat", editSquat.getText().toString());
-                editor.putString("userBench", editBench.getText().toString());
-                editor.putString("userDeadlift", editDeadlift.getText().toString());
-                editor.putInt("userGender", genderSpinner.getSelectedItemPosition());
-                editor.putInt("userActivityLevel", activitySpinner.getSelectedItemPosition());
-                editor.commit();
+                    /* Assigning variables to the SQLite data from the user's most recent entry */
+                    TDEEdata = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
+                    carbData = mDatabaseHelper.populateCarbData(mDatabaseHelper);
+                    fatsData = mDatabaseHelper.populateFatsData(mDatabaseHelper);
+                    proteinData = mDatabaseHelper.populateProteinData(mDatabaseHelper);
+
+                    /* Updated user input values are added to Shared Preferences */
+                    editor.putString("userAge", editAge.getText().toString());
+                    editor.putString("userHeight", editHeight.getText().toString());
+                    editor.putString("userWeight", editWeight.getText().toString());
+                    editor.putString("userSquat", editSquat.getText().toString());
+                    editor.putString("userBench", editBench.getText().toString());
+                    editor.putString("userDeadlift", editDeadlift.getText().toString());
+                    editor.putInt("userGender", genderSpinner.getSelectedItemPosition());
+                    editor.putInt("userActivityLevel", activitySpinner.getSelectedItemPosition());
+                    editor.commit();
 
 
-                tvTDEE.setText(TDEEdata);
-                tvCarbs.setText(carbData + "g");
-                tvFats.setText(fatsData + "g");
-                tvProteins.setText(proteinData + "g");
+                    tvTDEE.setText(TDEEdata);
+                    tvCarbs.setText(carbData + "g");
+                    tvFats.setText(fatsData + "g");
+                    tvProteins.setText(proteinData + "g");
 
+                    final Dialog dialog = new Dialog(getActivity());
+
+                    dialog.setContentView(R.layout.dialog);
+
+                    TextView dialogText = (TextView) dialog.findViewById(R.id.dialogTextView);
+                    dialogText.setText("Looking good! Your stats have been successfully updated!");
+
+                    Button dialogButton = (Button) dialog.findViewById(R.id.dialogButton);
+                    dialogButton.setBackgroundResource(R.drawable.dialogbuttonshape);
+
+                    dialogButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.show();
+
+            } catch (Exception e){
                 final Dialog dialog = new Dialog(getActivity());
 
                 dialog.setContentView(R.layout.dialog);
-                dialog.setTitle("Information!");
 
                 TextView dialogText = (TextView) dialog.findViewById(R.id.dialogTextView);
-                dialogText.setText("Looking good! Your stats have been successfully updated!");
+                dialogText.setText("Uh oh. Looks like some of your data fields are empty. Make sure to fill those in so we can give you accurate metrics!");
 
                 Button dialogButton = (Button) dialog.findViewById(R.id.dialogButton);
                 dialogButton.setBackgroundResource(R.drawable.dialogbuttonshape);
@@ -260,6 +278,7 @@ public class UserFragment extends Fragment {
                 });
 
                 dialog.show();
+            }
             }
         });
 
