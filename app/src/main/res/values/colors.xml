@@ -2,9 +2,14 @@
 <resources>
     <color name="colorPrimary">#cd5c5c</color>
     <color name="colorSecondary">#ffaf00</color>
-    <color name="colorAccent">#ffffff</color>
-    <color name="colorAccentSecondary">#0091cf</color>
-    <color name="colorAccentTertiary">#01395e</color>
+    <color name="colorSecondaryLight">#A6fff7e6</color>
 
+    <color name="colorAccent">#26ffffff</color>
+
+    <color name="colorAccentSecondary">#0091cf</color>
+    <color name="colorAccentSecondaryLight">#A6e6f7ff</color>   <!-- Hex Color Code Addition: A6 == 65% color opacity on the given RGB Hex Code -->
+
+    <color name="colorAccentTertiary">#01395e</color>
+    <color name="colorAccentTertiaryLight">#A6f3d8d8</color>
 
 </resources>

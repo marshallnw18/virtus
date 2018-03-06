@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -71,8 +72,6 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override
@@ -122,7 +121,7 @@ public class HomeFragment extends Fragment {
                 new DataPoint(1, 5),
                 new DataPoint(2, 3),
                 new DataPoint(3, 2),
-                new DataPoint(4, 6)
+                new DataPoint(4, 5)
         });
 
         /* Series are currently just testing data for formatting the UI */
@@ -136,11 +135,11 @@ public class HomeFragment extends Fragment {
         graphTotal.addSeries(series2);
 
         LineGraphSeries<DataPoint> series3 = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(4, 1),
-                new DataPoint(2, 2),
-                new DataPoint(1, 3),
-                new DataPoint(6, 4),
-                new DataPoint(5, 2)
+                new DataPoint(0, 1),
+                new DataPoint(1, 2),
+                new DataPoint(2, 3),
+                new DataPoint(3, 4),
+                new DataPoint(4, 2)
         });
         graphTotal.addSeries(series3);
 
@@ -148,10 +147,31 @@ public class HomeFragment extends Fragment {
         graphTotal.addSeries(liftTotalSeries);
         graphTotal.setTitle("Squat/Bench/Deadlift Progression");
 
+        liftTotalSeries.setTitle("Squat");
+        series2.setTitle("Bench");
+        series3.setTitle("Deadlift");
+        graphTotal.getLegendRenderer().setVisible(true);
+        graphTotal.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+        graphTotal.getLegendRenderer().setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
         /* Setting colors for the line data */
-        liftTotalSeries.setColor(getResources().getColor(R.color.colorSecondary));
+        liftTotalSeries.setColor(getResources().getColor(R.color.colorPrimary));
+        liftTotalSeries.setBackgroundColor(getResources().getColor(R.color.colorAccentTertiaryLight));
+        liftTotalSeries.setThickness(10);
+        liftTotalSeries.setDrawBackground(true);
+        liftTotalSeries.setDrawDataPoints(true);
+
         series2.setColor(getResources().getColor(R.color.colorAccentSecondary));
-        series3.setColor(getResources().getColor(R.color.colorAccentTertiary));
+        series2.setBackgroundColor(getResources().getColor(R.color.colorAccentSecondaryLight));
+        series2.setThickness(4);
+        series2.setDrawBackground(true);
+        series2.setDrawDataPoints(true);
+
+        series3.setColor(getResources().getColor(R.color.colorSecondary));
+        series3.setBackgroundColor(getResources().getColor(R.color.colorSecondaryLight));
+        series3.setThickness(8);
+        series3.setDrawBackground(true);
+        series3.setDrawDataPoints(true);
 
         tv_squat.setText(squatData);
         tv_bench.setText(benchData);

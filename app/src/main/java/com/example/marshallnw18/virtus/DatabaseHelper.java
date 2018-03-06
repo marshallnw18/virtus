@@ -17,6 +17,7 @@ import java.util.Date;
 public class DatabaseHelper extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "virtus.db";
+    private final String TAG = "DATABASE HELPER";
 
     /*
     https://www.androidhive.info/2013/09/android-sqlite-database-with-multiple-tables/
@@ -92,7 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d("Database Helper", "Upgrading database from version " + oldVersion + " to version " + newVersion);
+        Log.d(TAG, "Upgrading database from version " + oldVersion + " to version " + newVersion);
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LIFTS);
