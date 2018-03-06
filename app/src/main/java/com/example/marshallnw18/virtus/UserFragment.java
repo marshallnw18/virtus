@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -31,12 +32,11 @@ import java.math.RoundingMode;
  * create an instance of this fragment.
  */
 public class UserFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    SharedPreferences sharedPreferences;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private DatabaseHelper mDatabaseHelper;
+    SharedPreferences sharedPreferences;
+
     private Button UpdateSettings;
     private EditText editHeight, editWeight, editAge, editSquat, editBench, editDeadlift;
     private TextView tvTDEE, tvCarbs, tvProteins, tvFats;
@@ -44,7 +44,8 @@ public class UserFragment extends Fragment {
     private String TDEEdata, carbData, proteinData, fatsData;
     private String gender, activityLevel;
 
-    // TODO: Rename and change types of parameters
+    private final String TAG = "USER FRAGMENT";
+
     private String mParam1;
     private String mParam2;
 
@@ -54,7 +55,6 @@ public class UserFragment extends Fragment {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static UserFragment newInstance(String param1, String param2) {
         UserFragment fragment = new UserFragment();
         Bundle args = new Bundle();
@@ -128,33 +128,28 @@ public class UserFragment extends Fragment {
         activitySpinner.setAdapter(activityAdapter);
 
         //TODO: Add prompt if any EditText Views are null when UpdateSettings is clicked
-        //TODO: Toast/Prompt to confirm updated data
 
-        /* Item Selected Listener for pulling data from Gender Spinner */
+        /* ItemSelected Listener for pulling data from Gender Spinner */
         genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 gender = genderSpinner.getSelectedItem().toString();
-                Log.d("Gender Spinner", "Gender: " + gender);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                //TODO Auto-generated method stub
             }
         });
 
-        /* Item Selected Listener for pulling data from Activity Level Spinner */
+        /* ItemSelected Listener for pulling data from Activity Level Spinner */
         activitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 activityLevel = activitySpinner.getSelectedItem().toString();
-                Log.d("Activity Level", "Activity Level: " + activityLevel);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                //TODO Auto-generated method stub
             }
         });
 
@@ -190,12 +185,14 @@ public class UserFragment extends Fragment {
                 double finalWilks;
                 double bmr, tdee;
 
+                /* Calculate BMR based on selected gender -- Used in TDEE formula */
                 if(gender.equals("Male")){
                     bmr = 66 + (6.23 * weight) + (12.7 * height) - (6.8 * age);
                 } else {
                     bmr = 655 + (4.35 * weight) + (4.7 * height) - (4.7 * age);
                 }
 
+                /* Apply appropriate TDEE multiplier to the user's BMR based on the selected activity level. Finds final TDEE count */
                 if(activityLevel.equals("Sedentary: Little or no Exercise")){
                     tdee = bmr * 1.2;
                 } else if (activityLevel.equals("Lightly Active: Exercise 1-3 days per week")){
@@ -208,22 +205,19 @@ public class UserFragment extends Fragment {
                     tdee = bmr * 1.9;
                 }
 
-                Log.d("tdee","Total Daily Energy Expenditure: " + tdee);
-
+                /* Calculating the final numbers for the user's Wilks and macronutrient breakdowns */
                 finalWilks = calculateWilks((double)weight, gender);
-                finalProtein = 0.9 * weight;
-                finalFat = (0.25 * tdee) / 9;
-                finalCarb = ((tdee
-                            - ((finalProtein * 4) + (0.25 * tdee)))
-                            / 4.0);
+                //Macro breakdown based on a 30/35/35 ratio
+                finalProtein = (tdee * (0.3)) / 4;
+                finalFat = (0.35 * tdee) / 9;
+                finalCarb = (0.35 * tdee) / 4;
 
-                Log.d("USER FRAGMENT", "Wilks: " + finalWilks);
-
+                /* Adding data to the SQLite database */
                 addDataUsers(height, weight, gender);
                 addDataLifts(squat, bench, deadlift, finalWilks);
                 addDataNutrition(round(finalCarb, 1), round(finalProtein, 1), round(finalFat,1), (int) tdee);
 
-
+                /* Assigning variables to the SQLite data from the user's most recent entry */
                 TDEEdata = mDatabaseHelper.populateTDEEData(mDatabaseHelper);
                 carbData = mDatabaseHelper.populateCarbData(mDatabaseHelper);
                 fatsData = mDatabaseHelper.populateFatsData(mDatabaseHelper);
@@ -245,6 +239,10 @@ public class UserFragment extends Fragment {
                 tvCarbs.setText(carbData + "g");
                 tvFats.setText(fatsData + "g");
                 tvProteins.setText(proteinData + "g");
+
+                /* Toast for feedback so that the user knows their data was successfully entered */
+                Toast toast = Toast.makeText(getActivity(), "Statistics Updated!", Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
 
@@ -267,9 +265,9 @@ public class UserFragment extends Fragment {
         boolean insertData = mDatabaseHelper.addDataUsers(height,weight,gender);
 
         if(insertData = true){
-            Log.d("User Fragment","User data successfully inserted");
+            Log.d(TAG,"User data successfully inserted");
         } else {
-            Log.d("User Fragment","User data insertion failed");
+            Log.d(TAG,"User data insertion failed");
         }
     }
 
@@ -278,9 +276,9 @@ public class UserFragment extends Fragment {
         boolean insertData = mDatabaseHelper.addDataLifts(squat,bench,deadlift, wilks);
 
         if(insertData = true){
-            Log.d("User Fragment","Lift data successfully inserted");
+            Log.d(TAG,"Lift data successfully inserted");
         } else {
-            Log.d("User Fragment","Lift data insertion failed");
+            Log.d(TAG,"Lift data insertion failed");
         }
     }
 
@@ -289,9 +287,9 @@ public class UserFragment extends Fragment {
         boolean insertData = mDatabaseHelper.addDataNutrition(carbs,proteins,fats, tdee);
 
         if(insertData = true){
-            Log.d("User Fragment","Nutrition data successfully inserted");
+            Log.d(TAG,"Nutrition data successfully inserted");
         } else {
-            Log.d("User Fragment","Nutrition data insertion failed");
+            Log.d(TAG,"Nutrition data insertion failed");
         }
     }
 
@@ -324,14 +322,9 @@ public class UserFragment extends Fragment {
                 (e * (lifterWeight * lifterWeight * lifterWeight * lifterWeight)) +
                 (f * (lifterWeight * lifterWeight * lifterWeight * lifterWeight * lifterWeight)));
 
-        Log.d("calculateWilks", "Weight: " + lifterWeight);
-        Log.d("calculateWilks", "Gender: " + lifterGender);
-        Log.d("calculateWilks", "Wilks Coeff: " + coeff);
-
         return coeff;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -353,7 +346,6 @@ public class UserFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
@@ -361,25 +353,25 @@ public class UserFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
-            Log.d("Lifecycle", "Activity Created");
+            Log.d(TAG, "Activity Created");
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d("Lifecycle", "SaveInstance executed");
+        Log.d(TAG, "SaveInstance executed");
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        Log.d("Lifecycle", "onPause executed");
+        Log.d(TAG, "onPause executed");
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        Log.d("Lifecycle", "onResume executed");
+        Log.d(TAG, "onResume executed");
     }
 }

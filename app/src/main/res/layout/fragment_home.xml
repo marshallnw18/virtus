@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tvLifterClassification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -31,7 +31,7 @@
             android:id="@+id/relSpace1"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_below="@+id/textView3"/>
+            android:layout_below="@+id/tvLifterClassification"/>
 
         <com.example.marshallnw18.virtus.CircularProgressBar
             android:id="@+id/circularProgress"

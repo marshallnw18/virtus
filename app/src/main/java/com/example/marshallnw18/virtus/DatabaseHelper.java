@@ -313,4 +313,24 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return result;
     }
 
+    public String populateUserWeight(DatabaseHelper db){
+        SQLiteDatabase SQ = db.getReadableDatabase();
+        String[] columns = new String[]{USER_ID, COL_HEIGHT, COL_WEIGHT, COL_GENDER, COL_USER_DATE};
+        String orderBy = COL_USER_DATE + " DESC";
+        String limit = "1";
+
+        //SQL Query that orders based on the most recent DateTime entry
+        Cursor c = SQ.query(TABLE_USER, columns, null, null, null, null, orderBy, limit);
+        String result = "";
+
+        int indexDeadlift = c.getColumnIndex(COL_WEIGHT);
+
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            result = c.getString(indexDeadlift);
+        }
+
+        c.close();
+        return result;
+    }
+
 }
