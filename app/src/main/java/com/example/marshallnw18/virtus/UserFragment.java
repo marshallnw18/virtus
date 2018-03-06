@@ -1,5 +1,6 @@
 package com.example.marshallnw18.virtus;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -240,9 +241,25 @@ public class UserFragment extends Fragment {
                 tvFats.setText(fatsData + "g");
                 tvProteins.setText(proteinData + "g");
 
-                /* Toast for feedback so that the user knows their data was successfully entered */
-                Toast toast = Toast.makeText(getActivity(), "Statistics Updated!", Toast.LENGTH_SHORT);
-                toast.show();
+                final Dialog dialog = new Dialog(getActivity());
+
+                dialog.setContentView(R.layout.dialog);
+                dialog.setTitle("Information!");
+
+                TextView dialogText = (TextView) dialog.findViewById(R.id.dialogTextView);
+                dialogText.setText("Looking good! Your stats have been successfully updated!");
+
+                Button dialogButton = (Button) dialog.findViewById(R.id.dialogButton);
+                dialogButton.setBackgroundResource(R.drawable.dialogbuttonshape);
+
+                dialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
             }
         });
 
