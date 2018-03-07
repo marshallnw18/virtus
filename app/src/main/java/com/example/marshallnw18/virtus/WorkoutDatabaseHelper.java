@@ -134,12 +134,12 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
 
 
     /* Record creation for Week One */
-    public static String INSERT_DATA_WEEK_ONE = "insert into " + TABLE_WEEK_ONE + " ("
+    public static String INSERT_DATA_WEEK_ONE = "INSERT INTO " + TABLE_WEEK_ONE + " ("
             + COL_DAY + ", "
             + COL_LIFT + ", "
             + COL_SETS_REPS + ", "
             + COL_1RM_PERCENTAGE + ") "
-            + "values "
+            + "VALUES "
             + "('Day 1', 'Squat', '3x8', 0.7), "
             + "('Day 1', 'Deadlift', '2x8', 0.7), "
             + "('Day 1', 'Bicep Exercise', '3x8', null), "
@@ -168,7 +168,7 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
             + "('Day 6', 'Bench Press', '3x4', 0.775), "
             + "('Day 6', 'Close-Grip Bench Press', '3x8', null), "
             + "('Day 6', 'Weighted Pull-Up', '3x5', null), "
-            + "('Day 6', 'Side Lateral Raises', '3x10', null)";
+            + "('Day 6', 'Side Lateral Raises', '3x10', null);";
 
     /* Record creation for Week Two */
     public static String INSERT_DATA_WEEK_TWO;
@@ -184,6 +184,7 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(DATABASE_CREATE_WEEK_SEVEN);
         db.execSQL(DATABASE_CREATE_WEEK_EIGHT);
 
+        db.execSQL(INSERT_DATA_WEEK_ONE);
         //Populate DB SQL Queries
     }
 
