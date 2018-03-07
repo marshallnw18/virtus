@@ -146,6 +146,7 @@ public class HomeFragment extends Fragment {
         });
         graphTotal.addSeries(series3);
 
+       // LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[0]);
 
         graphTotal.addSeries(liftTotalSeries);
         graphTotal.setTitle("Squat/Bench/Deadlift Progression");
@@ -213,7 +214,6 @@ public class HomeFragment extends Fragment {
     public void wilksProgressBar(int wilksScore){
         int progressToNextStage = (wilksScore % 10) * 10;
         mProgressBar.setProgress(progressToNextStage);
-
 
         //TODO: Update progress increments based on AVG Wilks jumps: http://ironstrong.org/topic/1042-strength-standards-beginner-intermediate-advanced/
     }

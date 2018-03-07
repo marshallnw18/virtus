@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.marshallnw18.virtus.supportingClasses.Exercise;
+import com.example.marshallnw18.virtus.supportingClasses.WeekOne;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +27,13 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class WorkoutFragment extends Fragment {
+    WorkoutDatabaseHelper myWorkoutDatabaseHelper;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     List<Exercise> exerciseList = new ArrayList<>();
+
+    private final String TAG = "WORKOUT FRAGMENT";
 
     private String mParam1;
     private String mParam2;
@@ -47,6 +52,7 @@ public class WorkoutFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment WorkoutFragment.
      */
+
     public static WorkoutFragment newInstance(String param1, String param2) {
         WorkoutFragment fragment = new WorkoutFragment();
         Bundle args = new Bundle();
@@ -70,6 +76,16 @@ public class WorkoutFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_workout, container, false);
 
+                myWorkoutDatabaseHelper = new WorkoutDatabaseHelper(this.getActivity());
+
+
+                /*ArrayList<WeekOne> test = myWorkoutDatabaseHelper.testQuery(myWorkoutDatabaseHelper);
+                System.out.println(test.size());
+
+               for (int counter = 0; counter < test.size(); counter++) {
+                    System.out.println(test.get(counter).getDay());
+                } */
+
         setInitialData();
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
@@ -80,6 +96,7 @@ public class WorkoutFragment extends Fragment {
         MyAdapter myAdapter = new MyAdapter(getActivity(),exerciseList);
         recyclerView.setAdapter(myAdapter);
 
+
         return view;
     }
 
@@ -87,11 +104,6 @@ public class WorkoutFragment extends Fragment {
         exerciseList.add(new Exercise("Bench Press","5x5",R.drawable.benchpress));
         exerciseList.add(new Exercise("Squat","5x5",R.drawable.squats));
         exerciseList.add(new Exercise("Deadlift","5x5",R.drawable.deadlift));
-        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
-        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
-        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
-        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
-        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
         exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
         exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
     }
