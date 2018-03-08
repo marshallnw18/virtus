@@ -76,15 +76,7 @@ public class WorkoutFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_workout, container, false);
 
-                myWorkoutDatabaseHelper = new WorkoutDatabaseHelper(this.getActivity());
-
-
-                /*ArrayList<WeekOne> test = myWorkoutDatabaseHelper.testQuery(myWorkoutDatabaseHelper);
-                System.out.println(test.size());
-
-               for (int counter = 0; counter < test.size(); counter++) {
-                    System.out.println(test.get(counter).getDay());
-                } */
+        myWorkoutDatabaseHelper = new WorkoutDatabaseHelper(this.getActivity());
 
         setInitialData();
 

@@ -4,12 +4,15 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.marshallnw18.virtus.supportingClasses.WeekOne;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by marshallnw18 on 3/6/2018.
@@ -72,7 +75,9 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
     }
 
-    //SQLite Creation Queries
+    //================================================================================
+    // Record Creation for Week One
+    //================================================================================
 
     public static final String DATABASE_CREATE_WEEK_ONE = "create table "
             + TABLE_WEEK_ONE + "(" + WEEK_ONE_ID + " integer primary key autoincrement, "
@@ -81,65 +86,9 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
             + COL_SETS_REPS + " text, "
             + COL_1RM_PERCENTAGE + " real)";
 
-    public static final String DATABASE_CREATE_WEEK_TWO = "create table "
-            + TABLE_WEEK_TWO + "(" + WEEK_TWO_ID + " integer primary key autoincrement, "
-            + COL_DAY + " text, "
-            + COL_LIFT + " text, "
-            + COL_SETS_REPS + " text, "
-            + COL_1RM_PERCENTAGE + " real)";
-
-    public static final String DATABASE_CREATE_WEEK_THREE = "create table "
-            + TABLE_WEEK_THREE + "(" + WEEK_THREE_ID + " integer primary key autoincrement, "
-            + COL_DAY + " text, "
-            + COL_LIFT + " text, "
-            + COL_SETS_REPS + " text, "
-            + COL_1RM_PERCENTAGE + " real)";
-
-    public static final String DATABASE_CREATE_WEEK_FOUR = "create table "
-            + TABLE_WEEK_FOUR + "(" + WEEK_FOUR_ID + " integer primary key autoincrement, "
-            + COL_DAY + " text, "
-            + COL_LIFT + " text, "
-            + COL_SETS_REPS + " text, "
-            + COL_1RM_PERCENTAGE + " real)";
-
-    public static final String DATABASE_CREATE_WEEK_FIVE = "create table "
-            + TABLE_WEEK_FIVE + "(" + WEEK_FIVE_ID + " integer primary key autoincrement, "
-            + COL_DAY + " text, "
-            + COL_LIFT + " text, "
-            + COL_SETS_REPS + " text, "
-            + COL_1RM_PERCENTAGE + " real)";
-
-    public static final String DATABASE_CREATE_WEEK_SIX = "create table "
-            + TABLE_WEEK_SIX + "(" + WEEK_SIX_ID + " integer primary key autoincrement, "
-            + COL_DAY + " text, "
-            + COL_LIFT + " text, "
-            + COL_SETS_REPS + " text, "
-            + COL_1RM_PERCENTAGE + " real)";
-
-    public static final String DATABASE_CREATE_WEEK_SEVEN = "create table "
-            + TABLE_WEEK_SEVEN + "(" + WEEK_SEVEN_ID + " integer primary key autoincrement, "
-            + COL_DAY + " text, "
-            + COL_LIFT + " text, "
-            + COL_SETS_REPS + " text, "
-            + COL_1RM_PERCENTAGE + " real)";
-
-    public static final String DATABASE_CREATE_WEEK_EIGHT = "create table "
-            + TABLE_WEEK_EIGHT + "(" + WEEK_EIGHT_ID + " integer primary key autoincrement, "
-            + COL_DAY + " text, "
-            + COL_LIFT + " text, "
-            + COL_SETS_REPS + " text, "
-            + COL_1RM_PERCENTAGE + " real)";
-
-    //TODO: Create queries to populate tables
-
-
-    /* Record creation for Week One */
-    public static String INSERT_DATA_WEEK_ONE = "INSERT INTO " + TABLE_WEEK_ONE + " ("
-            + COL_DAY + ", "
-            + COL_LIFT + ", "
-            + COL_SETS_REPS + ", "
-            + COL_1RM_PERCENTAGE + ") "
-            + "VALUES "
+    public static String INSERT_DATA_WEEK_ONE = "INSERT INTO " + TABLE_WEEK_ONE
+            + " (" + COL_DAY + "," + COL_LIFT + "," + COL_SETS_REPS + "," + COL_1RM_PERCENTAGE + ")"
+            + " VALUES "
             + "('Day 1', 'Squat', '3x8', 0.7), "
             + "('Day 1', 'Deadlift', '2x8', 0.7), "
             + "('Day 1', 'Bicep Exercise', '3x8', null), "
@@ -168,10 +117,120 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
             + "('Day 6', 'Bench Press', '3x4', 0.775), "
             + "('Day 6', 'Close-Grip Bench Press', '3x8', null), "
             + "('Day 6', 'Weighted Pull-Up', '3x5', null), "
-            + "('Day 6', 'Side Lateral Raises', '3x10', null);";
+            + "('Day 6', 'Side Lateral Raises', '3x10', null); ";
 
-    /* Record creation for Week Two */
-    public static String INSERT_DATA_WEEK_TWO;
+
+    //================================================================================
+    // Record Creation for Week Two
+    //================================================================================
+
+    public static final String DATABASE_CREATE_WEEK_TWO = "create table "
+            + TABLE_WEEK_TWO + "(" + WEEK_TWO_ID + " integer primary key autoincrement, "
+            + COL_DAY + " text, "
+            + COL_LIFT + " text, "
+            + COL_SETS_REPS + " text, "
+            + COL_1RM_PERCENTAGE + " real)";
+
+    public static String INSERT_DATA_WEEK_TWO = "INSERT INTO " + TABLE_WEEK_TWO
+            + " (" + COL_DAY + "," + COL_LIFT + "," + COL_SETS_REPS + "," + COL_1RM_PERCENTAGE + ")"
+            + " VALUES "
+            + "('Day 1', 'Squat', '4x8', 0.725), "
+            + "('Day 1', 'Deadlift', '2x8', 0.75), "
+            + "('Day 1', 'Bicep Exercise', '4x8', null), "
+            + "('Day 1', 'Shrugs', '4x10', null), "
+
+            + "('Day 2', 'Bench Press', '4x8', 0.72), "
+            + "('Day 2', 'Weighted Pull-Up', '4x6', null), "
+            + "('Day 2', 'Overhead Press', '4x6', null), "
+            + "('Day 2', 'Tricep Exercise', '4x8', null), "
+
+            + "('Day 3', 'Squat', '5x6', 0.775), "
+            + "('Day 3', 'Deadlift', '2x6', 0.775), "
+            + "('Day 3', 'Bicep Exercise', '4x8', null), "
+            + "('Day 3', 'Rear Delt Exercise', '3x12', null), "
+
+            + "('Day 4', 'Bench Press', '5x6', 0.775), "
+            + "('Day 4', 'Pendlay Row', '4x8', null), "
+            + "('Day 4', 'Incline Dumbbell Bench Press', '4x10', null), "
+            + "('Day 4', 'Tricep Exercise', '4x8', null), "
+
+            + "('Day 5', 'Squat', '6x4', 0.8), "
+            + "('Day 5', 'Deadlift', '2x4', 0.825), "
+            + "('Day 5', 'Bicep Exercise', '4x5', null), "
+            + "('Day 5', 'Core Exercise', '3x5 / 3x12', null), "
+
+            + "('Day 6', 'Bench Press', '6x4', 0.825), "
+            + "('Day 6', 'Close-Grip Bench Press', '4x8', null), "
+            + "('Day 6', 'Weighted Pull-Up', '4x5', null), "
+            + "('Day 6', 'Side Lateral Raises', '3x12', null); ";
+
+    //================================================================================
+    // Record Creation for Week Three
+    //================================================================================
+
+    public static final String DATABASE_CREATE_WEEK_THREE = "create table "
+            + TABLE_WEEK_THREE + "(" + WEEK_THREE_ID + " integer primary key autoincrement, "
+            + COL_DAY + " text, "
+            + COL_LIFT + " text, "
+            + COL_SETS_REPS + " text, "
+            + COL_1RM_PERCENTAGE + " real)";
+
+    //================================================================================
+    // Record Creation for Week Four
+    //================================================================================
+
+    public static final String DATABASE_CREATE_WEEK_FOUR = "create table "
+            + TABLE_WEEK_FOUR + "(" + WEEK_FOUR_ID + " integer primary key autoincrement, "
+            + COL_DAY + " text, "
+            + COL_LIFT + " text, "
+            + COL_SETS_REPS + " text, "
+            + COL_1RM_PERCENTAGE + " real)";
+
+    //================================================================================
+    // Record Creation for Week Five
+    //================================================================================
+
+    public static final String DATABASE_CREATE_WEEK_FIVE = "create table "
+            + TABLE_WEEK_FIVE + "(" + WEEK_FIVE_ID + " integer primary key autoincrement, "
+            + COL_DAY + " text, "
+            + COL_LIFT + " text, "
+            + COL_SETS_REPS + " text, "
+            + COL_1RM_PERCENTAGE + " real)";
+
+    //================================================================================
+    // Record Creation for Week Six
+    //================================================================================
+
+    public static final String DATABASE_CREATE_WEEK_SIX = "create table "
+            + TABLE_WEEK_SIX + "(" + WEEK_SIX_ID + " integer primary key autoincrement, "
+            + COL_DAY + " text, "
+            + COL_LIFT + " text, "
+            + COL_SETS_REPS + " text, "
+            + COL_1RM_PERCENTAGE + " real)";
+
+    //================================================================================
+    // Record Creation for Week Seven
+    //================================================================================
+
+    public static final String DATABASE_CREATE_WEEK_SEVEN = "create table "
+            + TABLE_WEEK_SEVEN + "(" + WEEK_SEVEN_ID + " integer primary key autoincrement, "
+            + COL_DAY + " text, "
+            + COL_LIFT + " text, "
+            + COL_SETS_REPS + " text, "
+            + COL_1RM_PERCENTAGE + " real)";
+
+    //================================================================================
+    // Record Creation for Week Eight
+    //================================================================================
+
+    public static final String DATABASE_CREATE_WEEK_EIGHT = "create table "
+            + TABLE_WEEK_EIGHT + "(" + WEEK_EIGHT_ID + " integer primary key autoincrement, "
+            + COL_DAY + " text, "
+            + COL_LIFT + " text, "
+            + COL_SETS_REPS + " text, "
+            + COL_1RM_PERCENTAGE + " real)";
+
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -184,7 +243,20 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(DATABASE_CREATE_WEEK_SEVEN);
         db.execSQL(DATABASE_CREATE_WEEK_EIGHT);
 
-        db.execSQL(INSERT_DATA_WEEK_ONE);
+        try {
+            db.execSQL(INSERT_DATA_WEEK_ONE);
+            Log.d(TAG, "Week One succesfully inserted!");
+        } catch (SQLiteException e){
+            Log.d(TAG, "Week One failed insertion");
+        }
+
+        try {
+            db.execSQL(INSERT_DATA_WEEK_TWO);
+            Log.d(TAG, "Week Two succesfully inserted!");
+        } catch (SQLiteException e){
+            Log.d(TAG, "Week Two failed insertion");
+        }
+
         //Populate DB SQL Queries
     }
 
@@ -202,42 +274,5 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WEEK_EIGHT);
         onCreate(db);
     }
-
-  /* public ArrayList<WeekOne> testQuery(WorkoutDatabaseHelper db){
-        String query = "select * from " + TABLE_WEEK_ONE;
-        SQLiteDatabase SQ = this.getReadableDatabase();
-
-       ArrayList<WeekOne> list = new ArrayList<WeekOne>();
-
-       try {
-
-            Cursor c = SQ.rawQuery(query, null);
-
-            try {
-
-               // looping through all rows and adding to list
-               if (c.moveToFirst()) {
-                   do {
-                       WeekOne obj = new WeekOne();
-                       //only one column
-                       obj.setLift(c.getString(0));
-
-                       //you could add additional columns here..
-
-                       list.add(obj);
-                   } while (c.moveToNext());
-               }
-
-           } finally {
-               try { c.close(); } catch (Exception ignore) {}
-           }
-
-       } finally {
-           try { db.close(); } catch (Exception ignore) {}
-       }
-
-       return list;
-    } */
-
 
 }

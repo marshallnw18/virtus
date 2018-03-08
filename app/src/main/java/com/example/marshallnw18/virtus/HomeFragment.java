@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -34,9 +35,10 @@ public class HomeFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private DatabaseHelper mDatabaseHelper;
+    private WorkoutDatabaseHelper mWorkoutDatabaseHelper;
     private CircularProgressBar mProgressBar;
 
-    private TextView tv_wilks, tv_lifterClassification, tv_squat, tv_bench, tv_deadlift, tv_total;
+    private TextView tv_wilks, tv_squat, tv_bench, tv_deadlift, tv_total;
     private String wilksData, userWeightData, squatData, benchData, deadliftData, totalData;
 
     private String mParam1;
@@ -83,6 +85,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         mDatabaseHelper = new DatabaseHelper(getActivity());
+        mWorkoutDatabaseHelper = new WorkoutDatabaseHelper(getActivity());
 
         //Circular Progress Bar Actions
         mProgressBar = (CircularProgressBar) view.findViewById(R.id.circularProgress);
@@ -193,6 +196,13 @@ public class HomeFragment extends Fragment {
 
                 TextView dialogText = (TextView) dialog.findViewById(R.id.dialogTextView);
                 dialogText.setText("Your current lifter classification is: " + calculateLifterClassification((int)wilksScore, Integer.parseInt(userWeightData)));
+
+                /*  public String getClassification(Date ddMonth, double age, double weight, double bodyweight){
+                 *
+                 *  return classification;
+                 *
+                 * }
+                 */
 
                 Button dialogButton = (Button) dialog.findViewById(R.id.dialogButton);
                 dialogButton.setBackgroundResource(R.drawable.dialogbuttonshape);
