@@ -175,6 +175,39 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
             + COL_SETS_REPS + " text, "
             + COL_1RM_PERCENTAGE + " real)";
 
+    public static String INSERT_DATA_WEEK_THREE = "INSERT INTO " + TABLE_WEEK_THREE
+            + " (" + COL_DAY + "," + COL_LIFT + "," + COL_SETS_REPS + "," + COL_1RM_PERCENTAGE + ")"
+            + " VALUES "
+            + "('Day 1', 'Squat', '4x8, Week One + 10lb', null), "
+            + "('Day 1', 'Deadlift', '2x8, Week One + 10lb', null), "
+            + "('Day 1', 'Bicep Exercise', '5x8', null), "
+            + "('Day 1', 'Shrugs', '5x10', null), "
+
+            + "('Day 2', 'Bench Press', '4x8, Week One + 5lb', null), "
+            + "('Day 2', 'Weighted Pull-Up', '5x6', null), "
+            + "('Day 2', 'Overhead Press', '5x6', null), "
+            + "('Day 2', 'Tricep Exercise', '5x8', null), "
+
+            + "('Day 3', 'Squat', '5x6, Week One + 10lb', null), "
+            + "('Day 3', 'Deadlift', '2x6, Week One + 10lb', null), "
+            + "('Day 3', 'Bicep Exercise', '5x8', null), "
+            + "('Day 3', 'Rear Delt Exercise', '4x10', null), "
+
+            + "('Day 4', 'Bench Press', '5x6, Week One + 5lb', null), "
+            + "('Day 4', 'Pendlay Row', '5x8', null), "
+            + "('Day 4', 'Incline Dumbbell Bench Press', '5x10', null), "
+            + "('Day 4', 'Tricep Exercise', '5x8', null), "
+
+            + "('Day 5', 'Squat', '6x4, Week One + 10lb', null), "
+            + "('Day 5', 'Deadlift', '3x4, Week One + 10lb', null), "
+            + "('Day 5', 'Bicep Exercise', '5x5', null), "
+            + "('Day 5', 'Core Exercise', '3x5 / 3x12', null), "
+
+            + "('Day 6', 'Bench Press', '6x4, Week One + 5lb', null), "
+            + "('Day 6', 'Close-Grip Bench Press', '5x8', null), "
+            + "('Day 6', 'Weighted Pull-Up', '5x5', null), "
+            + "('Day 6', 'Side Lateral Raises', '4x10', null); ";
+
     //================================================================================
     // Record Creation for Week Four
     //================================================================================
@@ -185,6 +218,8 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
             + COL_LIFT + " text, "
             + COL_SETS_REPS + " text, "
             + COL_1RM_PERCENTAGE + " real)";
+
+    public static String INSERT_DATA_WEEK_FOUR;
 
     //================================================================================
     // Record Creation for Week Five
@@ -197,6 +232,8 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
             + COL_SETS_REPS + " text, "
             + COL_1RM_PERCENTAGE + " real)";
 
+    public static String INSERT_DATA_WEEK_FIVE;
+
     //================================================================================
     // Record Creation for Week Six
     //================================================================================
@@ -207,6 +244,8 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
             + COL_LIFT + " text, "
             + COL_SETS_REPS + " text, "
             + COL_1RM_PERCENTAGE + " real)";
+
+    public static String INSERT_DATA_WEEK_SIX;
 
     //================================================================================
     // Record Creation for Week Seven
@@ -219,6 +258,8 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
             + COL_SETS_REPS + " text, "
             + COL_1RM_PERCENTAGE + " real)";
 
+    public static String INSERT_DATA_WEEK_SEVEN;
+
     //================================================================================
     // Record Creation for Week Eight
     //================================================================================
@@ -230,6 +271,9 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
             + COL_SETS_REPS + " text, "
             + COL_1RM_PERCENTAGE + " real)";
 
+    public static String INSERT_DATA_WEEK_EIGHT;
+
+    //TODO: Write Pull Queries for the Database
 
 
     @Override
@@ -245,19 +289,18 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
 
         try {
             db.execSQL(INSERT_DATA_WEEK_ONE);
-            Log.d(TAG, "Week One succesfully inserted!");
-        } catch (SQLiteException e){
-            Log.d(TAG, "Week One failed insertion");
-        }
-
-        try {
             db.execSQL(INSERT_DATA_WEEK_TWO);
-            Log.d(TAG, "Week Two succesfully inserted!");
+            db.execSQL(INSERT_DATA_WEEK_THREE);
+            db.execSQL(INSERT_DATA_WEEK_FOUR);
+            db.execSQL(INSERT_DATA_WEEK_FIVE);
+            db.execSQL(INSERT_DATA_WEEK_SIX);
+            db.execSQL(INSERT_DATA_WEEK_SEVEN);
+            db.execSQL(INSERT_DATA_WEEK_EIGHT);
+            Log.d(TAG, "Workout database succesfully built!");
         } catch (SQLiteException e){
-            Log.d(TAG, "Week Two failed insertion");
+            Log.d(TAG, "Workout database failed insertion");
         }
 
-        //Populate DB SQL Queries
     }
 
     @Override

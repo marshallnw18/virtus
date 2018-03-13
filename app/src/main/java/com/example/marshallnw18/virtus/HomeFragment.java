@@ -192,7 +192,6 @@ public class HomeFragment extends Fragment {
                 final Dialog dialog = new Dialog(getActivity());
 
                 dialog.setContentView(R.layout.dialog);
-                dialog.setTitle("Information!");
 
                 TextView dialogText = (TextView) dialog.findViewById(R.id.dialogTextView);
                 dialogText.setText("Your current lifter classification is: " + calculateLifterClassification((int)wilksScore, Integer.parseInt(userWeightData)));

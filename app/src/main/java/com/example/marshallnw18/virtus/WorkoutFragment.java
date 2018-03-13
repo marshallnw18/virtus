@@ -15,7 +15,9 @@ import com.example.marshallnw18.virtus.supportingClasses.Exercise;
 import com.example.marshallnw18.virtus.supportingClasses.WeekOne;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -39,6 +41,9 @@ public class WorkoutFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    //Friday: Links Day X to Loopable variable
+    private Map<Integer, String> map = new HashMap<Integer, String>();
 
     public WorkoutFragment() {
         // Required empty public constructor
@@ -69,14 +74,25 @@ public class WorkoutFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        map.put(1, "Day 1");
+        map.put(2, "Day 2");
+        map.put(3, "Day 3");
+        map.put(4, "Day 4");
+        map.put(5, "Day 5");
+        map.put(6, "Day 6");
+
+        Log.d(TAG,"onCreate() method called");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.d(TAG,"onCreateView() method called");
         View view = inflater.inflate(R.layout.fragment_workout, container, false);
 
         myWorkoutDatabaseHelper = new WorkoutDatabaseHelper(this.getActivity());
+        myWorkoutDatabaseHelper.close();
 
         setInitialData();
 
@@ -92,6 +108,7 @@ public class WorkoutFragment extends Fragment {
         return view;
     }
 
+    //TODO: Create a FOR loop method. Iterate through # of cards on the page and dynamically populate them based on Week #
     private void setInitialData(){
         exerciseList.add(new Exercise("Bench Press","5x5",R.drawable.benchpress));
         exerciseList.add(new Exercise("Squat","5x5",R.drawable.squats));
