@@ -29,7 +29,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:text="Day One"/>
+                android:fontFamily="@font/knewave_regular"
+                android:gravity="center"
+                android:text="DAY ONE"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list_day_one"
@@ -48,7 +50,9 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingLeft="10dp"
-                android:text="Day Two"/>
+                android:fontFamily="@font/knewave_regular"
+                android:gravity="center"
+                android:text="DAY TWO"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list_day_two"
@@ -67,7 +71,9 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingLeft="10dp"
-                android:text="Day Three"/>
+                android:fontFamily="@font/knewave_regular"
+                android:gravity="center"
+                android:text="DAY THREE"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list_day_three"
@@ -86,7 +92,9 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingLeft="10dp"
-                android:text="Day Four"/>
+                android:fontFamily="@font/knewave_regular"
+                android:gravity="center"
+                android:text="DAY FOUR"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list_day_four"
@@ -105,7 +113,9 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingLeft="10dp"
-                android:text="Day Five"/>
+                android:fontFamily="@font/knewave_regular"
+                android:gravity="center"
+                android:text="DAY FIVE"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list_day_five"
@@ -124,7 +134,9 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingLeft="10dp"
-                android:text="Day Six"/>
+                android:fontFamily="@font/knewave_regular"
+                android:gravity="center"
+                android:text="DAY SIX"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list_day_six"
