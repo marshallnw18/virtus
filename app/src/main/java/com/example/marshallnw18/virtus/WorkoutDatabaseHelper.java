@@ -119,6 +119,24 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
             + "('Day 6', 'Weighted Pull-Up', '3x5', null), "
             + "('Day 6', 'Side Lateral Raises', '3x10', null); ";
 
+    public String[][] pullWorkoutWeekOne(WorkoutDatabaseHelper db){
+        SQLiteDatabase SQ = this.getReadableDatabase();
+        Cursor c = SQ.rawQuery("SELECT * FROM " + TABLE_WEEK_ONE, null);
+
+        String[][] results = new String[24][5];
+
+        int i = 0;
+
+        //Uses a cursor object to place all elements of TABLE_WEEK_ONE into a 2D array that is then passed back to the Workout Frag
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            for(int j = 0; j < 5; j++) {
+                results[i][j] = c.getString(j);
+            }
+            i++;
+        }
+        c.close();
+        return results;
+    }
 
     //================================================================================
     // Record Creation for Week Two
@@ -272,27 +290,6 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
             + COL_1RM_PERCENTAGE + " real)";
 
     public static String INSERT_DATA_WEEK_EIGHT;
-
-    //TODO: Write Pull Queries for the Database
-
-    public String[][] pullWorkoutWeekOne(WorkoutDatabaseHelper db){
-        SQLiteDatabase SQ = this.getReadableDatabase();
-        Cursor c = SQ.rawQuery("SELECT * FROM " + TABLE_WEEK_ONE, null);
-
-        String[][] results = new String[24][5];
-
-        int i = 0;
-
-        //Uses a cursor object to place all elements of TABLE_WEEK_ONE into a 2D array that is then passed back to the Workout Frag
-        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-            for(int j = 0; j < 5; j++) {
-                results[i][j] = c.getString(j);
-            }
-            i++;
-        }
-        c.close();
-        return results;
-    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {

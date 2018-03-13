@@ -41,6 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         holder.mTextView.setText(exercise.getText1());
         holder.mTextView2.setText(exercise.getText2());
+        holder.mTextView3.setText(exercise.getText3());
         holder.mImageView.setImageResource(exercise.getImage());
     }
 
@@ -53,11 +54,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         ImageView mImageView;
         TextView mTextView;
         TextView mTextView2;
+        TextView mTextView3;
         public ViewHolder(View itemView) {
             super(itemView);
             this.mImageView = (ImageView) itemView.findViewById(R.id.imageView);
             this.mTextView = (TextView) itemView.findViewById(R.id.textView);
             this.mTextView2 = (TextView) itemView.findViewById(R.id.textView2);
+            this.mTextView3 = (TextView) itemView.findViewById(R.id.textView3);
         }
     }
 }
