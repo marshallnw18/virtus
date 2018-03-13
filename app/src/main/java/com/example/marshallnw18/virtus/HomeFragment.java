@@ -194,7 +194,11 @@ public class HomeFragment extends Fragment {
                 dialog.setContentView(R.layout.dialog);
 
                 TextView dialogText = (TextView) dialog.findViewById(R.id.dialogTextView);
-                dialogText.setText("Your current lifter classification is: " + calculateLifterClassification((int)wilksScore, Integer.parseInt(userWeightData)));
+                try{
+                    dialogText.setText("Your current lifter classification is: " + calculateLifterClassification((int)wilksScore, Integer.parseInt(userWeightData)));
+                } catch (Exception e){
+                    dialogText.setText("Input your information in the User page so we can calculate your Wilks score!");
+                }
 
                 /*  public String getClassification(Date ddMonth, double age, double weight, double bodyweight){
                  *
@@ -383,6 +387,8 @@ public class HomeFragment extends Fragment {
                 lifterClassification = "Unaccounted Lifter Classification";
             }
         }
+
+        //TO DO FROM MAJ LASISI: WRITE A METHOD FOR THESE - ELIMINATE ALL REPEATED CODE
 
         /* Classifies all individuals weighing between 242lbs (110kg) and 275lbs (125kg) */
         else if(bodyweight > 242 && bodyweight <= 275){

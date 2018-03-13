@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.marshallnw18.virtus.supportingClasses.Exercise;
 import com.example.marshallnw18.virtus.supportingClasses.WeekOne;
@@ -34,7 +35,7 @@ public class WorkoutFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     List<Exercise> exerciseList = new ArrayList<>();
-
+    private TextView mWorkoutText;
     private final String TAG = "WORKOUT FRAGMENT";
 
     private String mParam1;
@@ -91,6 +92,7 @@ public class WorkoutFragment extends Fragment {
         Log.d(TAG,"onCreateView() method called");
         View view = inflater.inflate(R.layout.fragment_workout, container, false);
 
+        mWorkoutText = (TextView) view.findViewById(R.id.workout_text);
         myWorkoutDatabaseHelper = new WorkoutDatabaseHelper(this.getActivity());
         myWorkoutDatabaseHelper.close();
 
@@ -110,6 +112,12 @@ public class WorkoutFragment extends Fragment {
 
     //TODO: Create a FOR loop method. Iterate through # of cards on the page and dynamically populate them based on Week #
     private void setInitialData(){
+        String[][] week_one = myWorkoutDatabaseHelper.pullWorkoutWeekOne(myWorkoutDatabaseHelper);
+
+        for(int i = 0; i < week_one.length; i++){
+            exerciseList.add(new Exercise(week_one[i][2], week_one[i][3], R.drawable.benchpress));
+        }
+
         exerciseList.add(new Exercise("Bench Press","5x5",R.drawable.benchpress));
         exerciseList.add(new Exercise("Squat","5x5",R.drawable.squats));
         exerciseList.add(new Exercise("Deadlift","5x5",R.drawable.deadlift));

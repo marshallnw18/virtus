@@ -275,6 +275,25 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
 
     //TODO: Write Pull Queries for the Database
 
+    public String[][] pullWorkoutWeekOne(WorkoutDatabaseHelper db){
+        SQLiteDatabase SQ = this.getReadableDatabase();
+        Cursor c = SQ.rawQuery("SELECT * FROM " + TABLE_WEEK_ONE, null);
+
+        String[][] results = new String[24][5];
+
+        int i = 0;
+
+        //Uses a cursor object to place all elements of TABLE_WEEK_ONE into a 2D array that is then passed back to the Workout Frag
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            for(int j = 0; j < 5; j++) {
+                results[i][j] = c.getString(j);
+            }
+            i++;
+        }
+
+        c.close();
+        return results;
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -291,11 +310,11 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(INSERT_DATA_WEEK_ONE);
             db.execSQL(INSERT_DATA_WEEK_TWO);
             db.execSQL(INSERT_DATA_WEEK_THREE);
-            db.execSQL(INSERT_DATA_WEEK_FOUR);
+          /*db.execSQL(INSERT_DATA_WEEK_FOUR);
             db.execSQL(INSERT_DATA_WEEK_FIVE);
             db.execSQL(INSERT_DATA_WEEK_SIX);
             db.execSQL(INSERT_DATA_WEEK_SEVEN);
-            db.execSQL(INSERT_DATA_WEEK_EIGHT);
+            db.execSQL(INSERT_DATA_WEEK_EIGHT); */
             Log.d(TAG, "Workout database succesfully built!");
         } catch (SQLiteException e){
             Log.d(TAG, "Workout database failed insertion");
