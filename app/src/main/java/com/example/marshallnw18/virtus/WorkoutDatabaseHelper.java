@@ -290,7 +290,6 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
             }
             i++;
         }
-
         c.close();
         return results;
     }

@@ -112,10 +112,10 @@ public class WorkoutFragment extends Fragment {
 
     //TODO: Create a FOR loop method. Iterate through # of cards on the page and dynamically populate them based on Week #
     private void setInitialData(){
-        String[][] week_one = myWorkoutDatabaseHelper.pullWorkoutWeekOne(myWorkoutDatabaseHelper);
+        String[][] workoutWeek = workoutWeekSelection(mWorkoutText.getText().toString());
 
-        for(int i = 0; i < week_one.length; i++){
-            exerciseList.add(new Exercise(week_one[i][2], week_one[i][3], R.drawable.benchpress));
+        for(int i = 0; i < workoutWeek.length; i++){
+            exerciseList.add(new Exercise(workoutWeek[i][2], workoutWeek[i][3], R.drawable.benchpress));
         }
 
         exerciseList.add(new Exercise("Bench Press","5x5",R.drawable.benchpress));
@@ -123,6 +123,21 @@ public class WorkoutFragment extends Fragment {
         exerciseList.add(new Exercise("Deadlift","5x5",R.drawable.deadlift));
         exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
         exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
+    }
+
+    public String[][] workoutWeekSelection(String displayedWeek){
+        String[][] weekSelection;
+
+        switch(displayedWeek){
+            case "Week One":
+                weekSelection = myWorkoutDatabaseHelper.pullWorkoutWeekOne(myWorkoutDatabaseHelper);
+                Log.d(TAG,"Pulling week one data...");
+                break;
+            default:
+                weekSelection = myWorkoutDatabaseHelper.pullWorkoutWeekOne(myWorkoutDatabaseHelper);
+        }
+
+        return weekSelection;
     }
 
     public void onButtonPressed(Uri uri) {
