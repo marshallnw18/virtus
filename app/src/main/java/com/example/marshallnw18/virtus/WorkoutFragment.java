@@ -36,6 +36,10 @@ public class WorkoutFragment extends Fragment {
 
     List<Exercise> exerciseListOne = new ArrayList<>();
     List<Exercise> exerciseListTwo = new ArrayList<>();
+    List<Exercise> exerciseListThree = new ArrayList<>();
+    List<Exercise> exerciseListFour = new ArrayList<>();
+    List<Exercise> exerciseListFive = new ArrayList<>();
+    List<Exercise> exerciseListSix = new ArrayList<>();
 
     private TextView mWorkoutText;
     private final String TAG = "WORKOUT FRAGMENT";
@@ -78,13 +82,6 @@ public class WorkoutFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        map.put(1, "Day 1");
-        map.put(2, "Day 2");
-        map.put(3, "Day 3");
-        map.put(4, "Day 4");
-        map.put(5, "Day 5");
-        map.put(6, "Day 6");
-
         Log.d(TAG,"onCreate() method called");
     }
 
@@ -98,28 +95,49 @@ public class WorkoutFragment extends Fragment {
         myWorkoutDatabaseHelper = new WorkoutDatabaseHelper(this.getActivity());
         myWorkoutDatabaseHelper.close();
 
-        setInitialData();
-
+        //TODO: Check for redundant code
         RecyclerView recyclerViewOne = (RecyclerView) view.findViewById(R.id.list_day_one);
         RecyclerView recyclerViewTwo = (RecyclerView) view.findViewById(R.id.list_day_two);
+        RecyclerView recyclerViewThree = (RecyclerView) view.findViewById(R.id.list_day_three);
+        RecyclerView recyclerViewFour = (RecyclerView) view.findViewById(R.id.list_day_four);
+        RecyclerView recyclerViewFive = (RecyclerView) view.findViewById(R.id.list_day_five);
+        RecyclerView recyclerViewSix = (RecyclerView) view.findViewById(R.id.list_day_six);
 
         LinearLayoutManager linearLayoutManagerOne = new LinearLayoutManager(getActivity());
         LinearLayoutManager linearLayoutManagerTwo = new LinearLayoutManager(getActivity());
+        LinearLayoutManager linearLayoutManagerThree = new LinearLayoutManager(getActivity());
+        LinearLayoutManager linearLayoutManagerFour = new LinearLayoutManager(getActivity());
+        LinearLayoutManager linearLayoutManagerFive = new LinearLayoutManager(getActivity());
+        LinearLayoutManager linearLayoutManagerSix = new LinearLayoutManager(getActivity());
 
         recyclerViewOne.setLayoutManager(linearLayoutManagerOne);
         recyclerViewTwo.setLayoutManager(linearLayoutManagerTwo);
+        recyclerViewThree.setLayoutManager(linearLayoutManagerThree);
+        recyclerViewFour.setLayoutManager(linearLayoutManagerFour);
+        recyclerViewFive.setLayoutManager(linearLayoutManagerFive);
+        recyclerViewSix.setLayoutManager(linearLayoutManagerSix);
 
         MyAdapter myAdapter = new MyAdapter(getActivity(),exerciseListOne);
         MyAdapter myAdapterTwo = new MyAdapter(getActivity(),exerciseListTwo);
+        MyAdapter myAdapterThree = new MyAdapter(getActivity(),exerciseListThree);
+        MyAdapter myAdapterFour = new MyAdapter(getActivity(),exerciseListFour);
+        MyAdapter myAdapterFive = new MyAdapter(getActivity(),exerciseListFive);
+        MyAdapter myAdapterSix = new MyAdapter(getActivity(),exerciseListSix);
 
         recyclerViewOne.setAdapter(myAdapter);
         recyclerViewTwo.setAdapter(myAdapterTwo);
+        recyclerViewThree.setAdapter(myAdapterThree);
+        recyclerViewFour.setAdapter(myAdapterFour);
+        recyclerViewFive.setAdapter(myAdapterFive);
+        recyclerViewSix.setAdapter(myAdapterSix);
+
+        setWorkoutData();
 
         return view;
     }
 
     //TODO: Create a FOR loop method. Iterate through # of cards on the page and dynamically populate them based on Week #
-    private void setInitialData(){
+    private void setWorkoutData(){
         String[][] workoutWeek = workoutWeekSelection(mWorkoutText.getText().toString());
 
         for(int i = 0; i < 4; i++){
@@ -128,6 +146,22 @@ public class WorkoutFragment extends Fragment {
 
         for(int i = 4; i < 8; i++){
             exerciseListTwo.add(new Exercise(workoutWeek[i][2], workoutWeek[i][3], R.drawable.squats));
+        }
+
+        for(int i = 8; i < 12; i++){
+            exerciseListThree.add(new Exercise(workoutWeek[i][2], workoutWeek[i][3], R.drawable.squats));
+        }
+
+        for(int i = 12; i < 16; i++){
+            exerciseListFour.add(new Exercise(workoutWeek[i][2], workoutWeek[i][3], R.drawable.squats));
+        }
+
+        for(int i = 16; i < 20; i++){
+            exerciseListFive.add(new Exercise(workoutWeek[i][2], workoutWeek[i][3], R.drawable.squats));
+        }
+
+        for(int i = 20; i < 24; i++){
+            exerciseListSix.add(new Exercise(workoutWeek[i][2], workoutWeek[i][3], R.drawable.squats));
         }
 
     }
