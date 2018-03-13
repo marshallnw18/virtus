@@ -34,7 +34,9 @@ public class WorkoutFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    List<Exercise> exerciseList = new ArrayList<>();
+    List<Exercise> exerciseListOne = new ArrayList<>();
+    List<Exercise> exerciseListTwo = new ArrayList<>();
+
     private TextView mWorkoutText;
     private final String TAG = "WORKOUT FRAGMENT";
 
@@ -98,14 +100,20 @@ public class WorkoutFragment extends Fragment {
 
         setInitialData();
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView recyclerViewOne = (RecyclerView) view.findViewById(R.id.list_day_one);
+        RecyclerView recyclerViewTwo = (RecyclerView) view.findViewById(R.id.list_day_two);
 
-        recyclerView.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager linearLayoutManagerOne = new LinearLayoutManager(getActivity());
+        LinearLayoutManager linearLayoutManagerTwo = new LinearLayoutManager(getActivity());
 
-        MyAdapter myAdapter = new MyAdapter(getActivity(),exerciseList);
-        recyclerView.setAdapter(myAdapter);
+        recyclerViewOne.setLayoutManager(linearLayoutManagerOne);
+        recyclerViewTwo.setLayoutManager(linearLayoutManagerTwo);
 
+        MyAdapter myAdapter = new MyAdapter(getActivity(),exerciseListOne);
+        MyAdapter myAdapterTwo = new MyAdapter(getActivity(),exerciseListTwo);
+
+        recyclerViewOne.setAdapter(myAdapter);
+        recyclerViewTwo.setAdapter(myAdapterTwo);
 
         return view;
     }
@@ -114,15 +122,14 @@ public class WorkoutFragment extends Fragment {
     private void setInitialData(){
         String[][] workoutWeek = workoutWeekSelection(mWorkoutText.getText().toString());
 
-        for(int i = 0; i < workoutWeek.length; i++){
-            exerciseList.add(new Exercise(workoutWeek[i][2], workoutWeek[i][3], R.drawable.benchpress));
+        for(int i = 0; i < 4; i++){
+            exerciseListOne.add(new Exercise(workoutWeek[i][2], workoutWeek[i][3], R.drawable.benchpress));
         }
 
-        exerciseList.add(new Exercise("Bench Press","5x5",R.drawable.benchpress));
-        exerciseList.add(new Exercise("Squat","5x5",R.drawable.squats));
-        exerciseList.add(new Exercise("Deadlift","5x5",R.drawable.deadlift));
-        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
-        exerciseList.add(new Exercise("text3","text3",R.mipmap.ic_launcher));
+        for(int i = 4; i < 8; i++){
+            exerciseListTwo.add(new Exercise(workoutWeek[i][2], workoutWeek[i][3], R.drawable.squats));
+        }
+
     }
 
     public String[][] workoutWeekSelection(String displayedWeek){
@@ -133,6 +140,7 @@ public class WorkoutFragment extends Fragment {
                 weekSelection = myWorkoutDatabaseHelper.pullWorkoutWeekOne(myWorkoutDatabaseHelper);
                 Log.d(TAG,"Pulling week one data...");
                 break;
+
             default:
                 weekSelection = myWorkoutDatabaseHelper.pullWorkoutWeekOne(myWorkoutDatabaseHelper);
         }
