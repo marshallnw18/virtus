@@ -261,6 +261,34 @@ public class UserFragment extends Fragment {
 
         //TODO: Override methods to set cursor to the end of EditTexts when clicked on
 
+        tvTDEE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(getActivity());
+
+                dialog.setContentView(R.layout.dialog);
+
+                TextView dialogText = (TextView) dialog.findViewById(R.id.dialogTextView);
+                try{
+                    dialogText.setText("Your Total Daily Energy Expenditure (TDEE) is how many calories your body needs to burn everyday. Eat a 500 calorie daily surplus to gain muscle mass. Eat a 500 calorie deficit to cut weight.");
+                } catch (Exception e){
+                    dialogText.setText("Input your information in the User page!");
+                }
+
+                Button dialogButton = (Button) dialog.findViewById(R.id.dialogButton);
+                dialogButton.setBackgroundResource(R.drawable.dialogbuttonshape);
+
+                dialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+        });
+
         return view;
     }
 
